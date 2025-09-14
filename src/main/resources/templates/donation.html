@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Community Donation | Kindly Give</title>
+  <!-- Google Font: Nunito -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<link rel="stylesheet" href="/css/donation.css">
+<body>
+  <main class="wrap">
+    <div class="container">
+      <!-- Header -->
+      <header style="text-align:center; margin-bottom: 10px;">
+        <div class="chip" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 21s-6.716-4.428-9.172-8.172C1.02 10.662 2.11 7.5 5 7.5c2 0 3.156 1.172 3.75 2 .594-.828 1.75-2 3.75-2 2.89 0 3.98 3.162 2.172 5.328C18.716 16.572 12 21 12 21Z" stroke="#5A3F2B" stroke-width="1.5" fill="#EAD9B5"/>
+          </svg>
+          Community Donations
+        </div>
+        <h1 class="title">Share a little kindness</h1>
+        <p class="subtitle">Offer items you no longer need. Together, we make a gentle difference.</p>
+      </header>
+
+      <!-- Card -->
+      <section class="card">
+        <div class="card-body">
+          <!-- Demo notice -->
+          <div class="notice">
+            This is a sample page for demonstrating the donation flow. Submissions are shown as a confirmation on this page.
+          </div>
+
+          <form id="donationForm" aria-describedby="formHint" novalidate>
+            <p id="formHint" class="sr-only">All fields have clear labels. Required fields are marked.</p>
+
+            <!-- Grid -->
+            <div class="grid two">
+              <!-- Item Type -->
+              <div class="field">
+                <label for="itemType" class="label">Item type <span aria-hidden="true" style="color:var(--honey-600)">*</span></label>
+                <select id="itemType" name="itemType" class="select" required aria-required="true">
+                  <option value="" disabled selected>Select an item type</option>
+                  <option value="food">Food</option>
+                  <option value="clothes">Clothes</option>
+                  <option value="books">Books</option>
+                  <option value="toys">Toys</option>
+                  <option value="hygiene">Hygiene</option>
+                  <option value="other">Other</option>
+                </select>
+                <span class="hint">Choose what you’re donating</span>
+              </div>
+
+              <!-- Quantity + Unit -->
+              <div class="field">
+                <label for="quantity" class="label">Quantity <span aria-hidden="true" style="color:var(--honey-600)">*</span></label>
+                <div class="row">
+                  <input id="quantity" name="quantity" class="input grow" type="number" inputmode="numeric" min="1" step="1" placeholder="e.g., 5" required aria-required="true"/>
+                  <select id="quantityUnit" name="quantityUnit" class="select basis" aria-label="Quantity unit">
+                    <option value="pieces" selected>pieces</option>
+                    <option value="kg">kg</option>
+                    <option value="boxes">boxes</option>
+                    <option value="bags">bags</option>
+                    <option value="sets">sets</option>
+                  </select>
+                </div>
+                <span class="hint">How many and in which unit</span>
+              </div>
+
+              <!-- Expiry date (only for Food) -->
+              <div id="expiryBlock" class="field hidden">
+                <label for="expiryDate" class="label">Expiry date <span aria-hidden="true" style="color:var(--honey-600)">*</span></label>
+                <input id="expiryDate" name="expiryDate" class="input" type="date" aria-describedby="expiryHint"/>
+                <span id="expiryHint" class="hint">Required when donating food</span>
+              </div>
+
+              <!-- NGO Select (optional) -->
+              <div class="field">
+                <label for="ngo" class="label">NGO (optional)</label>
+                <select id="ngo" name="ngo" class="select" aria-required="false">
+                  <option value="" selected>Let us choose or pre-filled from list</option>
+                  <option value="hope-harvest">Hope Harvest</option>
+                  <option value="warm-threads">Warm Threads</option>
+                  <option value="book-bridge">Book Bridge</option>
+                  <option value="little-smiles">Little Smiles</option>
+                  <option value="clean-start">Clean Start</option>
+                </select>
+                <span class="hint">Optional because you’re redirected from an NGO list</span>
+              </div>
+            </div>
+
+            <!-- Pickup -->
+            <div class="checkwrap" style="margin-top: var(--gap);">
+              <input id="pickup" name="pickup" type="checkbox" class="checkbox" />
+              <div>
+                <label for="pickup" class="label" style="margin-bottom:4px;">Request pickup</label>
+                <p class="hint" style="margin-top:0;">A volunteer can arrange a pickup if available in your area.</p>
+              </div>
+            </div>
+
+            <!-- Notes (optional) -->
+            <div class="field" style="margin-top: var(--gap);">
+              <label for="notes" class="label">Notes (optional)</label>
+              <textarea id="notes" name="notes" class="textarea" rows="3" placeholder="Condition, sizes, or helpful details..."></textarea>
+            </div>
+
+            <!-- Submit -->
+            <div class="actions">
+              <p class="footnote">By submitting, you confirm the items are safe and legal to donate.</p>
+              <button type="submit" class="btn btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7" stroke="#4B3322" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Submit donation
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Confirmation -->
+      <section id="confirmation" class="card confirm hidden" aria-live="polite">
+        <div class="card-body">
+          <div class="confirm-head">
+            <div class="confirm-badge" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M20 6L9 17l-5-5" stroke="#5A3F2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h2 style="margin:0; font-size:24px; font-weight: 900;">Thank you for your kindness!</h2>
+          </div>
+          <p class="subtitle" style="margin: 0 0 16px;">Here’s a quick summary of your donation for your records.</p>
+
+          <div class="summary">
+            <div class="confirm-card">
+              <h3 style="margin:0 0 10px; font-weight:800;">Details</h3>
+              <div id="summaryDetails" class="space"></div>
+            </div>
+            <div class="confirm-card">
+              <h3 style="margin:0 0 10px; font-weight:800;">Photo</h3>
+              <div id="summaryPhoto" class="hint" style="height: 160px; border:1px solid var(--cream-200); border-radius: var(--radius-xl); display:flex; align-items:center; justify-content:center; background: var(--cream-200);">
+                No photo provided
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-16" style="display:flex; flex-wrap:wrap; gap:10px;">
+            <button id="newDonation" class="btn btn-primary">Create another donation</button>
+            <button id="editDonation" class="btn btn-ghost">Edit this donation</button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        Your privacy matters. We don’t store personal data on this sample page.
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    // Elements
+    const form = document.getElementById('donationForm');
+    const itemType = document.getElementById('itemType');
+    const quantity = document.getElementById('quantity');
+    const quantityUnit = document.getElementById('quantityUnit');
+    const expiryBlock = document.getElementById('expiryBlock');
+    const expiryDate = document.getElementById('expiryDate');
+    const ngo = document.getElementById('ngo');
+    const pickup = document.getElementById('pickup');
+    const notes = document.getElementById('notes');
+
+    const confirmation = document.getElementById('confirmation');
+    const summaryDetails = document.getElementById('summaryDetails');
+    const summaryPhoto = document.getElementById('summaryPhoto');
+    const newDonation = document.getElementById('newDonation');
+    const editDonation = document.getElementById('editDonation');
+
+    // Helper: show/hide expiry based on item type
+    function updateExpiryVisibility() {
+      const isFood = itemType.value === 'food';
+      if (isFood) {
+        expiryBlock.classList.remove('hidden');
+        expiryDate.required = true;
+        // min today for food
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        expiryDate.min = `${yyyy}-${mm}-${dd}`;
+      } else {
+        expiryBlock.classList.add('hidden');
+        expiryDate.required = false;
+        expiryDate.value = '';
+      }
+    }
+    itemType.addEventListener('change', updateExpiryVisibility);
+
+    // Validation helpers
+    function setInvalid(el, message) {
+      el.setAttribute('aria-invalid', 'true');
+      el.classList.add('is-invalid');
+      const parent = el.closest('.field') || el.parentElement;
+      let msg = parent.querySelector('[data-error-for="' + el.id + '"]');
+      if (!msg) {
+        msg = document.createElement('p');
+        msg.dataset.errorFor = el.id;
+        msg.className = 'error';
+        parent.appendChild(msg);
+      }
+      msg.textContent = message;
+    }
+    function clearInvalid(el) {
+      el.removeAttribute('aria-invalid');
+      el.classList.remove('is-invalid');
+      const parent = el.closest('.field') || el.parentElement;
+      const msg = parent.querySelector('[data-error-for="' + el.id + '"]');
+      if (msg) msg.remove();
+    }
+    [itemType, quantity, expiryDate, ngo, quantityUnit].forEach(el => {
+      el.addEventListener('input', () => clearInvalid(el));
+      el.addEventListener('change', () => clearInvalid(el));
+    });
+
+    // Submit handler (demo: show confirmation)
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Validate required fields
+      let valid = true;
+      if (!itemType.value) { setInvalid(itemType, 'Please select an item type.'); valid = false; }
+      const qtyVal = parseInt(quantity.value, 10);
+      if (!qtyVal || qtyVal < 1) { setInvalid(quantity, 'Please enter a quantity of at least 1.'); valid = false; }
+      if (itemType.value === 'food' && !expiryDate.value) {
+        setInvalid(expiryDate, 'Please provide an expiry date for food items.');
+        valid = false;
+      }
+
+      if (!valid) {
+        const firstErr = document.querySelector('[aria-invalid="true"]');
+        if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      // Build summary
+      const labelsMap = {
+        food: 'Food',
+        clothes: 'Clothes',
+        books: 'Books',
+        toys: 'Toys',
+        hygiene: 'Hygiene',
+        other: 'Other'
+      };
+      const ngoLabels = {
+        'hope-harvest': 'Hope Harvest',
+        'warm-threads': 'Warm Threads',
+        'book-bridge': 'Book Bridge',
+        'little-smiles': 'Little Smiles',
+        'clean-start': 'Clean Start'
+      };
+
+      summaryDetails.innerHTML = '';
+      const addRow = (label, value) => {
+        const row = document.createElement('div');
+        row.className = 'rowline';
+        const l = document.createElement('span');
+        l.className = 'labelt';
+        l.textContent = label;
+        const v = document.createElement('span');
+        v.style.fontWeight = '800';
+        v.textContent = value;
+        row.append(l, v);
+        summaryDetails.appendChild(row);
+      };
+
+      addRow('Item type', labelsMap[itemType.value] || itemType.value);
+      addRow('Quantity', `${qtyVal} ${quantityUnit.value}`);
+      if (itemType.value === 'food' && expiryDate.value) {
+        addRow('Expiry date', new Date(expiryDate.value + 'T00:00:00').toLocaleDateString());
+      }
+      if (ngo.value) {
+        addRow('NGO', ngoLabels[ngo.value] || ngo.value);
+      } else {
+        addRow('NGO', 'Not specified');
+      }
+      addRow('Pickup requested', pickup.checked ? 'Yes' : 'No');
+      if (notes.value.trim()) {
+        addRow('Notes', notes.value.trim());
+      }
+
+      // Photo section always shows "No photo provided" as upload is removed
+      summaryPhoto.textContent = 'No photo provided';
+
+      // Show confirmation
+      confirmation.classList.remove('hidden');
+      confirmation.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // New donation: clear and reset
+    document.getElementById('newDonation').addEventListener('click', () => {
+      form.reset();
+      [itemType, quantity, expiryDate, ngo, quantityUnit].forEach(clearInvalid);
+      updateExpiryVisibility();
+      confirmation.classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Edit donation: hide confirmation, keep values
+    document.getElementById('editDonation').addEventListener('click', () => {
+      confirmation.classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Auto-fill NGO from URL parameter "ngo" if present
+    function autoFillNGOFromURL(){
+      try{
+        const params = new URLSearchParams(window.location.search);
+        const ngoParam = params.get('ngo');
+        if(ngoParam){
+          const option = Array.from(ngo.options).find(o => o.value === ngoParam);
+          if(option){ ngo.value = ngoParam; }
+        }
+      }catch(err){ /* ignore */ }
+    }
+
+    // Init
+    updateExpiryVisibility();
+    autoFillNGOFromURL();
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97ee16d216df5477',t:'MTc1NzgzNDA4NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
