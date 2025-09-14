@@ -33,5 +33,9 @@ public class HomeController {
 
         return "story_of_impact";
     }
-
+    @GetMapping("/signup")
+    public String signup(Model model) {
+    model.addAttribute("pageTitle", "Sign Up");
+    return "signup"; 
+    }
 }
