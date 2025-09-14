@@ -12,4 +12,11 @@ public class HomeController {
         model.addAttribute("message", "Hello, Thymeleaf + Spring Boot!");
         return "index"; // this looks for index.html inside templates/
     }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+    model.addAttribute("pageTitle", "Login");
+    
+    return "login"; 
+}
 }
