@@ -27,6 +27,11 @@ public class HomeController {
 
         return "donation";
     }
-    
+    @GetMapping("/story")
+    public String story_of_impact(Model model) {
+        model.addAttribute("pageTitle", "STORIES OF IMPACT");
+
+        return "story_of_impact";
+    }
 
 }

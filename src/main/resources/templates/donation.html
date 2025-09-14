@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <link rel="stylesheet" href="/css/donation.css">
+
 <body>
   <main class="wrap">
     <div class="container">
@@ -136,17 +137,10 @@
               <h3 style="margin:0 0 10px; font-weight:800;">Details</h3>
               <div id="summaryDetails" class="space"></div>
             </div>
-            <div class="confirm-card">
-              <h3 style="margin:0 0 10px; font-weight:800;">Photo</h3>
-              <div id="summaryPhoto" class="hint" style="height: 160px; border:1px solid var(--cream-200); border-radius: var(--radius-xl); display:flex; align-items:center; justify-content:center; background: var(--cream-200);">
-                No photo provided
-              </div>
-            </div>
           </div>
 
           <div class="mt-16" style="display:flex; flex-wrap:wrap; gap:10px;">
             <button id="newDonation" class="btn btn-primary">Create another donation</button>
-            <button id="editDonation" class="btn btn-ghost">Edit this donation</button>
           </div>
         </div>
       </section>
@@ -171,9 +165,7 @@
 
     const confirmation = document.getElementById('confirmation');
     const summaryDetails = document.getElementById('summaryDetails');
-    const summaryPhoto = document.getElementById('summaryPhoto');
     const newDonation = document.getElementById('newDonation');
-    const editDonation = document.getElementById('editDonation');
 
     // Helper: show/hide expiry based on item type
     function updateExpiryVisibility() {
@@ -287,9 +279,6 @@
         addRow('Notes', notes.value.trim());
       }
 
-      // Photo section always shows "No photo provided" as upload is removed
-      summaryPhoto.textContent = 'No photo provided';
-
       // Show confirmation
       confirmation.classList.remove('hidden');
       confirmation.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -304,11 +293,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Edit donation: hide confirmation, keep values
-    document.getElementById('editDonation').addEventListener('click', () => {
-      confirmation.classList.add('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
 
     // Auto-fill NGO from URL parameter "ngo" if present
     function autoFillNGOFromURL(){
@@ -326,5 +310,5 @@
     updateExpiryVisibility();
     autoFillNGOFromURL();
   </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97ee16d216df5477',t:'MTc1NzgzNDA4NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97ee33b3f212ae8f',t:'MTc1NzgzNTI2Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

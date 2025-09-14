@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stories of Impact</title>
+
+  <!-- Note: You asked for separate CSS/HTML, but Canva Code can only deliver a single self-contained file. So I’ve included the CSS inside this file to keep everything working. -->
+
+  <!-- Nunito font for soft, friendly typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<link rel="stylesheet" href="/css/story.css">
+
+<body>
+  <main class="page" aria-labelledby="pageTitle">
+    <header class="hero">
+      <span class="kicker" aria-hidden="true"><span class="dot"></span> Community-powered change</span>
+      <h1 id="pageTitle" class="title">Stories of Impact</h1>
+      <p class="subtitle">
+        Real moments made possible by your generosity. Explore how food, clothes, and toys are reaching neighbors in need—with gratitude from the NGOs on the ground.
+      </p>
+
+      <section class="filters" aria-labelledby="filtersTitle">
+        <h2 id="filtersTitle" class="sr-only">Filter Stories</h2>
+
+        <div class="row">
+          <div class="select-wrap">
+            <label for="ngoSelect"><span class="sr-only">NGO</span><span aria-hidden="true" style="font-weight:800;color:var(--brown-700);text-transform:uppercase;letter-spacing:.3px;font-size:13px;">NGO</span></label>
+            <div class="select">
+              <select id="ngoSelect" aria-label="Filter by NGO">
+                <option value="all">All NGOs</option>
+                <option value="Helping Hands">Helping Hands</option>
+                <option value="Bright Futures">Bright Futures</option>
+                <option value="Warm Hearts">Warm Hearts</option>
+              </select>
+              <span class="caret" aria-hidden="true">▾</span>
+            </div>
+          </div>
+
+          <div class="select-wrap">
+            <label for="cityInput"><span class="sr-only">City</span><span aria-hidden="true" style="font-weight:800;color:var(--brown-700);text-transform:uppercase;letter-spacing:.3px;font-size:13px;">City</span></label>
+            <div class="select" style="display:block;">
+              <input id="cityInput" type="search" placeholder="Search city (e.g., Eastside)" aria-label="Search by city" style="width:100%;background:#FFFFFF;border:1px solid rgba(75,58,46,0.10);border-radius:12px;padding:12px 14px;box-shadow: var(--shadow-softer);color: var(--brown-800);font-weight:600;" />
+            </div>
+          </div>
+
+          <div class="btns" aria-label="Filter actions">
+            <button type="button" id="applyBtn" class="btn btn-primary">
+              <span class="spark" aria-hidden="true">✨</span>
+              Apply filters
+            </button>
+            <button type="button" id="resetBtn" class="btn btn-ghost">Reset</button>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <div class="results-bar" aria-live="polite" aria-atomic="true">
+      <div><strong class="count" id="countLabel">6</strong> stories</div>
+      <div class="a11y-note">Stories are shown from most recent. Filter by NGO or search a city.</div>
+    </div>
+
+    <section class="grid" id="storyGrid" aria-label="Stories list" data-sort="recent">
+      <!-- Card 1 -->
+      <article class="card" tabindex="0" data-type="food" data-ngo="Helping Hands" data-city="Eastside">
+        <div class="media" aria-hidden="true">
+          <!-- Decorative “photo” SVG -->
+          <svg viewBox="0 0 800 500" preserveAspectRatio="none" role="img" aria-label="Smiling community gathering">
+            <defs>
+              <linearGradient id="grad1" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#F6E7CB"/>
+                <stop offset="100%" stop-color="#E7D2B4"/>
+              </linearGradient>
+            </defs>
+            <rect width="800" height="500" fill="url(#grad1)"/>
+            <g opacity="0.25" fill="#CFA24E">
+              <circle cx="120" cy="380" r="60"/>
+              <circle cx="240" cy="360" r="30"/>
+              <circle cx="680" cy="360" r="50"/>
+              <rect x="60" y="120" width="120" height="14" rx="7"/>
+              <rect x="620" y="90" width="100" height="14" rx="7"/>
+            </g>
+          </svg>
+
+        </div>
+        <div class="content">
+          <p class="desc">Food donations fed 50 families in the Eastside community.</p>
+          <div class="meta">
+            <span class="ngo">Helping Hands</span>
+            <time class="type-pill" datetime="2025-07-22"><span aria-hidden="true">📅</span> Posted Jul 22, 2025</time>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="card" tabindex="0" data-type="clothes" data-ngo="Warm Hearts" data-city="Downtown">
+        <div class="media" aria-hidden="true">
+          <svg viewBox="0 0 800 500" preserveAspectRatio="none" role="img" aria-label="Neighbors receiving warm clothes">
+            <defs>
+              <linearGradient id="grad2" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#F5E6D2"/>
+                <stop offset="100%" stop-color="#E6D4BC"/>
+              </linearGradient>
+            </defs>
+            <rect width="800" height="500" fill="url(#grad2)"/>
+            <g opacity="0.25" fill="#B5892F">
+              <rect x="140" y="340" width="120" height="60" rx="12"/>
+              <rect x="560" y="330" width="140" height="70" rx="14"/>
+              <circle cx="400" cy="130" r="40"/>
+            </g>
+          </svg>
+
+        </div>
+        <div class="content">
+          <p class="desc">Winter jackets kept 80 neighbors warm through the cold snap.</p>
+          <div class="meta">
+            <span class="ngo">Warm Hearts</span>
+            <time class="type-pill" datetime="2025-07-18"><span aria-hidden="true">📅</span> Posted Jul 18, 2025</time>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card" tabindex="0" data-type="toys" data-ngo="Bright Futures" data-city="Lakeside">
+        <div class="media" aria-hidden="true">
+          <svg viewBox="0 0 800 500" preserveAspectRatio="none" role="img" aria-label="Children playing with donated toys">
+            <defs>
+              <linearGradient id="grad3" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#F7EBDD"/>
+                <stop offset="100%" stop-color="#EAD8C2"/>
+              </linearGradient>
+            </defs>
+            <rect width="800" height="500" fill="url(#grad3)"/>
+            <g opacity="0.25" fill="#DDB770">
+              <circle cx="180" cy="160" r="30"/>
+              <circle cx="230" cy="190" r="20"/>
+              <rect x="460" y="340" width="160" height="60" rx="16"/>
+            </g>
+          </svg>
+
+        </div>
+        <div class="content">
+          <p class="desc">Toy bundles brought smiles to 40 kids at the weekend fair.</p>
+          <div class="meta">
+            <span class="ngo">Bright Futures</span>
+            <time class="type-pill" datetime="2025-07-10"><span aria-hidden="true">📅</span> Posted Jul 10, 2025</time>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="card" tabindex="0" data-type="food" data-ngo="Warm Hearts" data-city="Harborview">
+        <div class="media" aria-hidden="true">
+          <svg viewBox="0 0 800 500" preserveAspectRatio="none" role="img" aria-label="Community meal service">
+            <defs>
+              <linearGradient id="grad4" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#F5E7D4"/>
+                <stop offset="100%" stop-color="#E8D6BF"/>
+              </linearGradient>
+            </defs>
+            <rect width="800" height="500" fill="url(#grad4)"/>
+            <g opacity="0.25" fill="#CFA24E">
+              <rect x="120" y="300" width="180" height="80" rx="20"/>
+              <circle cx="640" cy="160" r="36"/>
+            </g>
+          </svg>
+
+        </div>
+        <div class="content">
+          <p class="desc">Pop-up pantry delivered fresh produce to 120 households.</p>
+          <div class="meta">
+            <span class="ngo">Warm Hearts</span>
+            <time class="type-pill" datetime="2025-07-15"><span aria-hidden="true">📅</span> Posted Jul 15, 2025</time>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="card" tabindex="0" data-type="clothes" data-ngo="Helping Hands" data-city="Eastside">
+        <div class="media" aria-hidden="true">
+          <svg viewBox="0 0 800 500" preserveAspectRatio="none" role="img" aria-label="Clothing drive drop-off">
+            <defs>
+              <linearGradient id="grad5" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#F6E8D8"/>
+                <stop offset="100%" stop-color="#EAD7C3"/>
+              </linearGradient>
+            </defs>
+            <rect width="800" height="500" fill="url(#grad5)"/>
+            <g opacity="0.25" fill="#B5892F">
+              <circle cx="260" cy="350" r="50"/>
+              <rect x="520" y="320" width="150" height="80" rx="20"/>
+            </g>
+          </svg>
+
+        </div>
+        <div class="content">
+          <p class="desc">Gently used clothing stocked community closets across 3 centers.</p>
+          <div class="meta">
+            <span class="ngo">Helping Hands</span>
+            <time class="type-pill" datetime="2025-07-12"><span aria-hidden="true">📅</span> Posted Jul 12, 2025</time>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="card" tabindex="0" data-type="toys" data-ngo="Bright Futures" data-city="Lakeside">
+        <div class="media" aria-hidden="true">
+          <svg viewBox="0 0 800 500" preserveAspectRatio="none" role="img" aria-label="Community celebration with toys">
+            <defs>
+              <linearGradient id="grad6" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#F7EBDD"/>
+                <stop offset="100%" stop-color="#EAD8C2"/>
+              </linearGradient>
+            </defs>
+            <rect width="800" height="500" fill="url(#grad6)"/>
+            <g opacity="0.25" fill="#D3A655">
+              <circle cx="120" cy="140" r="28"/>
+              <circle cx="680" cy="200" r="34"/>
+              <rect x="320" y="340" width="160" height="60" rx="16"/>
+            </g>
+          </svg>
+
+        </div>
+        <div class="content">
+          <p class="desc">Holiday toy drive reached 65 families in partnership with schools.</p>
+          <div class="meta">
+            <span class="ngo">Bright Futures</span>
+            <time class="type-pill" datetime="2025-07-10"><span aria-hidden="true">📅</span> Posted Jul 10, 2025</time>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const grid = document.getElementById('storyGrid');
+      const ngoSelect = document.getElementById('ngoSelect');
+      const cityInput = document.getElementById('cityInput');
+      const applyBtn = document.getElementById('applyBtn');
+      const resetBtn = document.getElementById('resetBtn');
+      const countLabel = document.getElementById('countLabel');
+
+      // Accessibility: keep focus visible on keyboard nav
+      let mouseDown = false;
+      document.addEventListener('mousedown', () => { mouseDown = true; });
+      document.addEventListener('keydown', () => { mouseDown = false; });
+
+
+      function applyFilters(){
+        const ngo = ngoSelect.value;
+        const cityQuery = (cityInput.value || '').trim().toLowerCase();
+        const items = Array.from(grid.children);
+
+        // Sort by most recent date (descending)
+        items.sort((a, b) => {
+          const da = new Date(a.querySelector('time')?.getAttribute('datetime') || 0).getTime();
+          const db = new Date(b.querySelector('time')?.getAttribute('datetime') || 0).getTime();
+          return db - da;
+        });
+        items.forEach(el => grid.appendChild(el));
+
+        let visibleCount = 0;
+        items.forEach(card => {
+          const cardNgo = card.getAttribute('data-ngo');
+          const city = (card.getAttribute('data-city') || '').toLowerCase();
+          const ngoOk = (ngo === 'all') ? true : (cardNgo === ngo);
+          const cityOk = cityQuery === '' ? true : city.includes(cityQuery);
+          const show = ngoOk && cityOk;
+          card.style.display = show ? 'flex' : 'none';
+          if (show) visibleCount++;
+        });
+
+        countLabel.textContent = String(visibleCount);
+      }
+
+      function resetFilters(){
+        ngoSelect.value = 'all';
+        cityInput.value = '';
+        applyFilters();
+      }
+
+      // Live filtering on change and on Apply button
+      ngoSelect.addEventListener('change', applyFilters);
+      cityInput.addEventListener('input', applyFilters);
+      applyBtn.addEventListener('click', applyFilters);
+      resetBtn.addEventListener('click', resetFilters);
+
+      // Initial
+      applyFilters();
+    })();
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97ee30ae1644ae8f',t:'MTc1NzgzNTE0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

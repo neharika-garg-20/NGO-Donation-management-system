@@ -1,4 +1,4 @@
-    :root{
+   :root{
       --cream-50:#FDFBF7;
       --cream-100:#FBF6EC;
       --cream-200:#F6ECD6;
@@ -202,6 +202,18 @@
 
     /* Confirmation */
     .confirm{ margin-top: 20px; }
+    /* Full-bleed confirmation band spanning the full page width */
+    .confirm.fullbleed{
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      width: 100vw;
+      border-radius: 0;
+    }
+    /* Keep inner content comfortably centered and readable */
+    .confirm.fullbleed .card-body{ max-width: 880px; margin: 0 auto; }
     .confirm-head{
       display:flex; align-items:center; gap:12px; margin-bottom: 12px;
     }
