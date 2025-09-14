@@ -1,0 +1,108 @@
+/* Custom Tailwind Colors */
+:root {
+  --cream: #FFFDD0;
+  --light-brown: #C4A484;
+  --medium-brown: #A0522D;
+  --dark-brown: #5C4033;
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  background: url("https://source.unsplash.com/1600x900/?charity,help") center/cover no-repeat;
+  height: 80vh;
+}
+.hero-section .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--light-brown);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: 0.3s;
+}
+.btn-primary:hover {
+  background: var(--medium-brown);
+}
+
+.btn-outline {
+  border: 1px solid var(--light-brown);
+  color: var(--light-brown);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: 0.3s;
+}
+.btn-outline:hover {
+  background: var(--light-brown);
+  color: white;
+}
+
+.btn-dark {
+  background: var(--dark-brown);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: 0.3s;
+}
+.btn-dark:hover {
+  background: var(--medium-brown);
+}
+
+.btn-outline-light {
+  border: 1px solid var(--light-brown);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: 0.3s;
+}
+.btn-outline-light:hover {
+  background: var(--light-brown);
+  color: white;
+}
+
+/* Action Boxes */
+.action-box {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+  border: 1px solid transparent;
+}
+.action-box:hover {
+  transform: translateY(-5px);
+  border-color: var(--cream);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Carousel */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--dark-brown);
+  padding: 0.5rem;
+  border-radius: 9999px;
+  color: white;
+  transition: 0.3s;
+}
+.carousel-btn:hover {
+  background: var(--medium-brown);
+}
+.carousel-btn.left-4 { left: 1rem; }
+.carousel-btn.right-4 { right: 1rem; }
+
+.dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+}

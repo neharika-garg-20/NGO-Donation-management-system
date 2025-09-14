@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NGO Landing Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../static/css/home.css">
+</head>
+<body class="bg-cream font-sans text-dark-brown">
+
+  <!-- Header -->
+  <header class="bg-cream shadow-md sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <!-- Logo -->
+      <div class="flex items-center space-x-2">
+        <svg class="w-8 h-8 text-dark-brown" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 0L15 9H24L17 14L20 23L12 18L4 23L7 14L0 9H9z"/>
+        </svg>
+        <span class="text-2xl font-bold">NGO</span>
+      </div>
+      
+      <!-- Nav Links -->
+      <nav class="hidden md:flex space-x-6 font-medium">
+        <a href="#home" class="hover:text-medium-brown">Home</a>
+        <a href="#stories" class="hover:text-medium-brown">Stories</a>
+        <a href="#about" class="hover:text-medium-brown">About</a>
+        <a href="#contact" class="hover:text-medium-brown">Contact</a>
+      </nav>
+
+      <!-- Auth Buttons -->
+      <div class="hidden md:flex space-x-4">
+        <button class="btn-primary" aria-label="Sign in">Sign In</button>
+        <button class="btn-outline" aria-label="Login">Login</button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="menuBtn" class="md:hidden text-dark-brown focus:outline-none" aria-label="Open Menu">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden flex-col space-y-4 px-6 pb-4 md:hidden bg-cream shadow-md">
+      <a href="#home" class="hover:text-medium-brown">Home</a>
+      <a href="#stories" class="hover:text-medium-brown">Stories</a>
+      <a href="#about" class="hover:text-medium-brown">About</a>
+      <a href="#contact" class="hover:text-medium-brown">Contact</a>
+      <div class="flex space-x-4">
+        <button class="btn-primary">Sign In</button>
+        <button class="btn-outline">Login</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero-section">
+    <div class="overlay">
+      <h1 class="text-4xl md:text-6xl font-bold">Welcome to Our NGO</h1>
+      <p class="mt-4 text-lg md:text-xl max-w-2xl">Together, we can make the world a better place by helping those in need.</p>
+      <div class="mt-6 flex space-x-4">
+        <button class="btn-dark">Join as Volunteer</button>
+        <button class="btn-outline-light">Donate Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Action Boxes -->
+  <section class="py-16 bg-cream">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+      <div class="action-box">
+        <svg class="w-12 h-12 mx-auto text-medium-brown" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 0L15 9H24L17 14L20 23L12 18L4 23L7 14L0 9H9z"/>
+        </svg>
+        <h3 class="mt-4 font-bold text-xl">Donate</h3>
+        <p class="mt-2 text-gray-600">Your small contribution can change someone's life.</p>
+      </div>
+      <div class="action-box">
+        <svg class="w-12 h-12 mx-auto text-medium-brown" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 0L15 9H24L17 14L20 23L12 18L4 23L7 14L0 9H9z"/>
+        </svg>
+        <h3 class="mt-4 font-bold text-xl">Volunteer</h3>
+        <p class="mt-2 text-gray-600">Join us in our mission and make a direct impact.</p>
+      </div>
+      <div class="action-box">
+        <svg class="w-12 h-12 mx-auto text-medium-brown" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 0L15 9H24L17 14L20 23L12 18L4 23L7 14L0 9H9z"/>
+        </svg>
+        <h3 class="mt-4 font-bold text-xl">Support</h3>
+        <p class="mt-2 text-gray-600">Help us spread awareness and build strong communities.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stories -->
+  <section id="stories" class="py-16 bg-light-brown text-white">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl font-bold">Stories of Impact</h2>
+      <div class="relative mt-8 overflow-hidden">
+        <div id="storiesCarousel" class="flex transition-transform duration-500">
+          <div class="min-w-full px-8">
+            <p class="text-lg">"Because of the NGO, I was able to go back to school and pursue my dreams."</p>
+            <span class="block mt-4 font-semibold">- Riya, Student</span>
+          </div>
+          <div class="min-w-full px-8">
+            <p class="text-lg">"Volunteering here has been the most rewarding experience of my life."</p>
+            <span class="block mt-4 font-semibold">- Arjun, Volunteer</span>
+          </div>
+          <div class="min-w-full px-8">
+            <p class="text-lg">"The support provided helped my family during difficult times."</p>
+            <span class="block mt-4 font-semibold">- Meena, Beneficiary</span>
+          </div>
+        </div>
+        <button id="prevStory" class="carousel-btn left-4" aria-label="Previous Story">‹</button>
+        <button id="nextStory" class="carousel-btn right-4" aria-label="Next Story">›</button>
+        <div class="mt-6 flex justify-center space-x-3">
+          <button class="dot bg-dark-brown story-dot" aria-label="Story 1"></button>
+          <button class="dot bg-gray-300 story-dot" aria-label="Story 2"></button>
+          <button class="dot bg-gray-300 story-dot" aria-label="Story 3"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="py-16 bg-cream">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl font-bold">About Us</h2>
+      <p class="mt-4 max-w-3xl mx-auto text-gray-700">We are a non-profit organization committed to helping underprivileged communities by providing education, healthcare, and support.</p>
+    </div>
+  </section>
+
+  <!-- Sponsors -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl font-bold text-dark-brown">Our Sponsors</h2>
+      <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="h-12 mx-auto" alt="Amazon">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="h-12 mx-auto" alt="Apple">
+        <span class="text-lg font-semibold">Jio</span>
+        <span class="text-lg font-semibold">TCS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact" class="bg-dark-brown text-white py-8">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+      <div>
+        <h3 class="font-bold text-lg">Contact Us</h3>
+        <p class="mt-2">123 NGO Street, City, India</p>
+        <p>Email: contact@ngo.org</p>
+        <p>Phone: +91 9876543210</p>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg">Follow Us</h3>
+        <div class="mt-2 flex justify-center md:justify-start space-x-4">
+          <a href="#">🌐</a>
+          <a href="#">📸</a>
+          <a href="#">🐦</a>
+          <a href="#">💼</a>
+        </div>
+      </div>
+      <div>
+        <h3 class="font-bold text-lg">Newsletter</h3>
+        <form class="mt-2 flex">
+          <input type="email" placeholder="Enter your email" class="w-full px-3 py-2 rounded-l-lg text-dark-brown focus:outline-none">
+          <button type="submit" class="bg-light-brown px-4 py-2 rounded-r-lg hover:bg-medium-brown">Go</button>
+        </form>
+      </div>
+    </div>
+    <p class="mt-6 text-center text-sm text-gray-400">© 2025 NGO. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Mobile Menu Toggle
+    document.getElementById("menuBtn").addEventListener("click", () => {
+      document.getElementById("mobileMenu").classList.toggle("hidden");
+    });
+
+    // Carousel Logic
+    const carousel = document.getElementById("storiesCarousel");
+    const dots = document.querySelectorAll(".story-dot");
+    let currentSlide = 0;
+
+    function updateCarousel(index) {
+      currentSlide = index;
+      carousel.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("bg-dark-brown", i === index);
+        dot.classList.toggle("bg-gray-300", i !== index);
+      });
+    }
+
+    document.getElementById("prevStory").onclick = () => {
+      updateCarousel((currentSlide - 1 + dots.length) % dots.length);
+    };
+    document.getElementById("nextStory").onclick = () => {
+      updateCarousel((currentSlide + 1) % dots.length);
+    };
+    dots.forEach((dot, i) => dot.onclick = () => updateCarousel(i));
+  </script>
+</body>
+</html>
