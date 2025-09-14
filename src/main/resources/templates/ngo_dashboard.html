@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGO Dashboard - Food Donation Platform</title>
+    <link rel="stylesheet" href="/css/ngo_dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>NGO Dashboard</h1>
+            <p>Manage your organization's donations and activities</p>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- NGO Profile Card - Full Width -->
+            <div class="card full-width">
+                <div class="card-title">
+                    Organization Profile
+                </div>
+                
+                <div class="ngo-name-fixed">
+                    Hope Foundation
+                </div>
+                
+                <h4 style="color: var(--dark-brown); margin-bottom: 12px;">Currently Accepting:</h4>
+                <div class="accepting-items" id="acceptingItems">
+                    <div class="item-tag accepting">
+                        🍽️ Food
+                        <span class="remove-item" onclick="removeAcceptingItem(this)">×</span>
+                    </div>
+                    <div class="item-tag accepting">
+                        👕 Clothes
+                        <span class="remove-item" onclick="removeAcceptingItem(this)">×</span>
+                    </div>
+                </div>
+                
+                <button class="add-item-btn" onclick="showItemPopup()">
+                    + Add Item
+                </button>
+            </div>
+
+            <!-- Row 1: Inventory Management and Urgent Need Alert -->
+            <div class="dashboard-row">
+                <!-- Inventory Management -->
+                <div class="card">
+                    <div class="card-title">Inventory Management</div>
+                    
+                    <div class="inventory-item">
+                        <div class="item-info">
+                            <span class="item-icon">🍽️</span>
+                            <div class="item-details">
+                                <h4>Food Items</h4>
+                                <p>Current stock in kg</p>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="number" class="amount-input" value="150" min="0">
+                            <span style="color: var(--medium-brown); margin-left: 8px;">kg</span>
+                        </div>
+                    </div>
+
+                    <div class="inventory-item">
+                        <div class="item-info">
+                            <span class="item-icon">👕</span>
+                            <div class="item-details">
+                                <h4>Clothes</h4>
+                                <p>Current stock in units</p>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="number" class="amount-input" value="75" min="0">
+                            <span style="color: var(--medium-brown); margin-left: 8px;">units</span>
+                        </div>
+                    </div>
+
+                    <div class="inventory-item">
+                        <div class="item-info">
+                            <span class="item-icon">🧸</span>
+                            <div class="item-details">
+                                <h4>Toys</h4>
+                                <p>Current stock in units</p>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="number" class="amount-input" value="32" min="0">
+                            <span style="color: var(--medium-brown); margin-left: 8px;">units</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Urgent Need Alert -->
+                <div class="card">
+                    <div class="card-title">Urgent Need Alert</div>
+                    
+                    <div class="urgent-alert" id="urgentAlert">
+                        <strong>🚨 URGENT NEED ACTIVE</strong><br>
+                        <div id="urgentItemsList" style="margin-top: 8px; font-weight: normal;">
+                            Currently urgent: Food, Clothes
+                        </div>
+                    </div>
+                    
+                    <div class="urgent-toggle">
+                        <div class="toggle-switch" id="urgentToggle" onclick="toggleUrgent()">
+                            <div class="toggle-slider"></div>
+                        </div>
+                        <span style="color: var(--dark-brown); font-weight: 500;">Activate Urgent Need Alert</span>
+                    </div>
+                    
+                    <div id="urgentItemsSelection" style="display: none; margin-top: 16px;">
+                        <h4 style="color: var(--dark-brown); margin-bottom: 12px; font-size: 16px;">Select Urgent Need Items:</h4>
+                        <div class="urgent-items-container">
+                            <div class="urgent-item-option selected" data-item="food" onclick="toggleUrgentItem(this)">
+                                <span class="urgent-item-icon">🍽️</span>
+                                <span class="urgent-item-text">Food</span>
+                                <span class="urgent-item-remove">×</span>
+                            </div>
+                            <div class="urgent-item-option selected" data-item="clothes" onclick="toggleUrgentItem(this)">
+                                <span class="urgent-item-icon">👕</span>
+                                <span class="urgent-item-text">Clothes</span>
+                                <span class="urgent-item-remove">×</span>
+                            </div>
+                            <div class="urgent-item-option" data-item="toys" onclick="toggleUrgentItem(this)">
+                                <span class="urgent-item-icon">🧸</span>
+                                <span class="urgent-item-text">Toys</span>
+                                <span class="urgent-item-remove">×</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p style="color: var(--medium-brown); font-size: 14px; margin-top: 12px;">
+                        Enable this when your organization has critical shortages and needs immediate donations.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Row 2: Quick Actions and Total Funds -->
+            <div class="dashboard-row">
+                <!-- Action Buttons -->
+                <div class="card">
+                    <div class="card-title">Quick Actions</div>
+                    
+                    <div class="action-buttons">
+                        <button class="action-btn btn-events" onclick="navigateToEvents()">
+                            📅 Events
+                        </button>
+                        <button class="action-btn btn-donations" onclick="navigateToDonations()">
+                            💝 Donations
+                        </button>
+                        <button class="action-btn btn-volunteers" onclick="navigateToVolunteers()">
+                            👥 Volunteers
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Total Funds -->
+                <div class="card funds-card">
+                    <div class="funds-decorative-pattern"></div>
+                    <div class="funds-icon-corner funds-icon-tl">💰</div>
+                    <div class="funds-icon-corner funds-icon-tr">💝</div>
+                    <div class="funds-icon-corner funds-icon-bl">🎯</div>
+                    <div class="funds-icon-corner funds-icon-br">❤️</div>
+                    
+                    <div class="funds-display">
+                        <div class="funds-amount">₹2,45,680</div>
+                        <div class="funds-label">Total Funds Collected</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Overview - Full Width -->
+            <div class="card full-width">
+                <div class="card-title">Statistics Overview</div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">156</div>
+                        <div class="stat-label">Active Donors</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">23</div>
+                        <div class="stat-label">Volunteers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">89</div>
+                        <div class="stat-label">Donations This Month</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Upcoming Events</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Popup for selecting items -->
+    <div class="popup-overlay" id="itemPopup">
+        <div class="popup-content">
+            <div class="popup-title">Select Items to Accept</div>
+            <div class="popup-options">
+                <div class="popup-option" data-item="food" onclick="togglePopupOption(this)">
+                    <div class="option-info">
+                        <span>🍽️</span>
+                        <span>Food</span>
+                    </div>
+                    <span class="option-cross">×</span>
+                </div>
+                <div class="popup-option" data-item="clothes" onclick="togglePopupOption(this)">
+                    <div class="option-info">
+                        <span>👕</span>
+                        <span>Clothes</span>
+                    </div>
+                    <span class="option-cross">×</span>
+                </div>
+                <div class="popup-option" data-item="toys" onclick="togglePopupOption(this)">
+                    <div class="option-info">
+                        <span>🧸</span>
+                        <span>Toys</span>
+                    </div>
+                    <span class="option-cross">×</span>
+                </div>
+            </div>
+            <div class="popup-buttons">
+                <button class="popup-btn btn-cancel" onclick="closeItemPopup()">Cancel</button>
+                <button class="popup-btn btn-save" onclick="saveSelectedItems()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedItems = new Set(['food', 'clothes']); // Currently accepting items
+        let urgentItems = new Set(['food', 'clothes']); // Currently urgent items
+
+        function showItemPopup() {
+            const popup = document.getElementById('itemPopup');
+            const options = popup.querySelectorAll('.popup-option');
+            
+            // Reset popup options based on current selection
+            options.forEach(option => {
+                const itemType = option.dataset.item;
+                if (selectedItems.has(itemType)) {
+                    option.classList.add('selected');
+                } else {
+                    option.classList.remove('selected');
+                }
+            });
+            
+            popup.classList.add('show');
+        }
+
+        function closeItemPopup() {
+            document.getElementById('itemPopup').classList.remove('show');
+        }
+
+        function togglePopupOption(element) {
+            element.classList.toggle('selected');
+        }
+
+        function saveSelectedItems() {
+            const popup = document.getElementById('itemPopup');
+            const selectedOptions = popup.querySelectorAll('.popup-option.selected');
+            const acceptingContainer = document.getElementById('acceptingItems');
+            
+            // Clear current items
+            selectedItems.clear();
+            acceptingContainer.innerHTML = '';
+            
+            // Add selected items
+            selectedOptions.forEach(option => {
+                const itemType = option.dataset.item;
+                const emoji = option.querySelector('.option-info span').textContent;
+                const name = option.querySelector('.option-info span:last-child').textContent;
+                
+                selectedItems.add(itemType);
+                
+                const itemTag = document.createElement('div');
+                itemTag.className = 'item-tag accepting';
+                itemTag.innerHTML = `
+                    ${emoji} ${name}
+                    <span class="remove-item" onclick="removeAcceptingItem(this)">×</span>
+                `;
+                acceptingContainer.appendChild(itemTag);
+            });
+            
+            closeItemPopup();
+        }
+
+        function removeAcceptingItem(element) {
+            const itemTag = element.parentElement;
+            const itemText = itemTag.textContent.trim().replace('×', '').trim();
+            
+            // Remove from selected items set
+            if (itemText.includes('Food')) selectedItems.delete('food');
+            if (itemText.includes('Clothes')) selectedItems.delete('clothes');
+            if (itemText.includes('Toys')) selectedItems.delete('toys');
+            
+            // Remove from DOM
+            itemTag.remove();
+        }
+
+        function toggleUrgent() {
+            const toggle = document.getElementById('urgentToggle');
+            const alert = document.getElementById('urgentAlert');
+            const selection = document.getElementById('urgentItemsSelection');
+            
+            if (toggle.classList.contains('active')) {
+                toggle.classList.remove('active');
+                alert.classList.remove('active');
+                selection.style.display = 'none';
+            } else {
+                toggle.classList.add('active');
+                alert.classList.add('active');
+                selection.style.display = 'block';
+                updateUrgentAlert();
+            }
+        }
+
+        function toggleUrgentItem(element) {
+            const itemType = element.dataset.item;
+            
+            if (element.classList.contains('selected')) {
+                element.classList.remove('selected');
+                urgentItems.delete(itemType);
+            } else {
+                element.classList.add('selected');
+                urgentItems.add(itemType);
+            }
+            
+            updateUrgentAlert();
+        }
+
+        function updateUrgentAlert() {
+            const urgentItemsList = document.getElementById('urgentItemsList');
+            const toggle = document.getElementById('urgentToggle');
+            
+            if (urgentItems.size === 0) {
+                urgentItemsList.textContent = 'No urgent items selected';
+            } else {
+                const itemNames = [];
+                urgentItems.forEach(item => {
+                    switch(item) {
+                        case 'food': itemNames.push('Food'); break;
+                        case 'clothes': itemNames.push('Clothes'); break;
+                        case 'toys': itemNames.push('Toys'); break;
+                    }
+                });
+                urgentItemsList.textContent = `Currently urgent: ${itemNames.join(', ')}`;
+            }
+            
+            // Show/hide alert based on whether urgent toggle is active and items are selected
+            const alert = document.getElementById('urgentAlert');
+            if (toggle.classList.contains('active') && urgentItems.size > 0) {
+                alert.classList.add('active');
+            } else {
+                alert.classList.remove('active');
+            }
+        }
+
+        function navigateToEvents() {
+            alert('Redirecting to Events page...\n\nHere you can:\n• Create new events\n• Manage existing events\n• View event attendance\n• Schedule fundraising activities');
+            // In a real app: window.location.href = '/events';
+        }
+
+        function navigateToDonations() {
+            alert('Redirecting to Donations page...\n\nHere you can:\n• View all donations\n• Track donation history\n• Generate donation reports\n• Send thank you messages');
+            // In a real app: window.location.href = '/donations';
+        }
+
+        function navigateToVolunteers() {
+            alert('Redirecting to Volunteers page...\n\nHere you can:\n• Manage volunteer profiles\n• Assign tasks to volunteers\n• Track volunteer hours\n• Recruit new volunteers');
+            // In a real app: window.location.href = '/volunteers';
+        }
+
+        // Auto-save inventory amounts
+        document.querySelectorAll('.amount-input').forEach(input => {
+            input.addEventListener('change', function() {
+                alert(`Inventory updated: ${this.value} ${this.nextElementSibling.textContent}`);
+            });
+        });
+
+        // Update funds periodically (simulation)
+        function updateFunds() {
+            const fundsElement = document.querySelector('.funds-amount');
+            let currentAmount = parseInt(fundsElement.textContent.replace(/[₹,]/g, ''));
+            
+            // Simulate small donations coming in
+            if (Math.random() > 0.7) {
+                currentAmount += Math.floor(Math.random() * 1000) + 100;
+                fundsElement.textContent = `₹${currentAmount.toLocaleString('en-IN')}`;
+            }
+        }
+
+        // Update funds every 30 seconds (for demo purposes)
+        setInterval(updateFunds, 30000);
+
+        function viewAllActivity() {
+            alert('Redirecting to Activity Log page...\n\nHere you can:\n• View complete activity history\n• Filter activities by type\n• Export activity reports\n• Set activity notifications');
+            // In a real app: window.location.href = '/activity';
+        }
+
+        // Animate progress bar on load
+        window.addEventListener('load', function() {
+            const progressFill = document.querySelector('.progress-fill');
+            if (progressFill) {
+                progressFill.style.width = '0%';
+                setTimeout(() => {
+                    progressFill.style.width = '82%';
+                }, 500);
+            }
+        });
+
+        // Simulate real-time activity updates
+        function addNewActivity() {
+            const activities = [
+                { icon: '💝', type: 'donation', text: '<strong>Anonymous Donor</strong> donated ₹2,500', time: 'Just now' },
+                { icon: '🍽️', type: 'food', text: '<strong>Local Bakery</strong> donated 15kg bread', time: 'Just now' },
+                { icon: '👥', type: 'volunteer', text: '<strong>Amit Singh</strong> joined as volunteer', time: 'Just now' },
+                { icon: '👕', type: 'clothes', text: '<strong>Clothing Drive</strong> collected 20 units', time: 'Just now' }
+            ];
+
+            const randomActivity = activities[Math.floor(Math.random() * activities.length)];
+            const activityFeed = document.querySelector('.activity-feed');
+            
+            if (activityFeed && Math.random() > 0.8) {
+                const newActivity = document.createElement('div');
+                newActivity.className = 'activity-item';
+                newActivity.innerHTML = `
+                    <div class="activity-icon ${randomActivity.type}">${randomActivity.icon}</div>
+                    <div class="activity-content">
+                        <div class="activity-text">${randomActivity.text}</div>
+                        <div class="activity-time">${randomActivity.time}</div>
+                    </div>
+                `;
+                
+                // Add with animation
+                newActivity.style.opacity = '0';
+                newActivity.style.transform = 'translateY(-10px)';
+                activityFeed.insertBefore(newActivity, activityFeed.firstChild);
+                
+                setTimeout(() => {
+                    newActivity.style.transition = 'all 0.3s ease';
+                    newActivity.style.opacity = '1';
+                    newActivity.style.transform = 'translateY(0)';
+                }, 100);
+
+                // Remove oldest activity if more than 5
+                const activities = activityFeed.querySelectorAll('.activity-item');
+                if (activities.length > 5) {
+                    activities[activities.length - 1].remove();
+                }
+            }
+        }
+
+        // Add new activity every 45 seconds
+        setInterval(addNewActivity, 45000);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97ee41aa70fa8171',t:'MTc1NzgzNTgzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
