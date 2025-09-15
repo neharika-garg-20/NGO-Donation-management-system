@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer History - Seva Setu</title>
+    <link rel="stylesheet" href="/css/history_volunteer.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo/Site Name -->
+                <div class="logo">
+                    <a href="index.html" class="logo-link">Seva Setu</a>
+                </div>
+                
+                <!-- Navigation Breadcrumb -->
+                <div class="breadcrumb">
+                    <a href="index.html" class="breadcrumb-link">Home</a>
+                    <span class="breadcrumb-separator">></span>
+                    <span class="breadcrumb-current">Volunteer History</span>
+                </div>
+                
+                <!-- User Profile -->
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <svg class="avatar-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <span class="user-name">Priya Sharma</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">My Volunteer History</h1>
+                <p class="page-subtitle">Track your volunteer journey and contributions to various NGOs</p>
+            </div>
+
+            <!-- Volunteer Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Events Joined</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">NGOs Supported</div>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Search and Filter -->
+            <div class="filter-section">
+                <div class="search-container">
+                    <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search events, NGOs, or locations...">
+                </div>
+                
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Events</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                    <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+                    <button class="filter-btn" data-filter="ongoing">Ongoing</button>
+                </div>
+            </div>
+
+            <!-- Volunteer History Table -->
+            <div class="table-section">
+                <div class="table-container">
+                    <table class="history-table" id="historyTable">
+                        <thead>
+                            <tr>
+                                <th class="sortable" data-column="event_id">
+                                    Event ID
+                                    <svg class="sort-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+                                    </svg>
+                                </th>
+                                <th class="sortable" data-column="event_name">
+                                    Event Name
+                                    <svg class="sort-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+                                    </svg>
+                                </th>
+                                <th class="sortable" data-column="registration_date">
+                                    Registration Date
+                                    <svg class="sort-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+                                    </svg>
+                                </th>
+                                <th>Duty</th>
+                                <th class="sortable" data-column="event_date">
+                                    Event Date
+                                    <svg class="sort-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+                                    </svg>
+                                </th>
+                                <th>NGO Name</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr data-status="completed">
+                                <td class="event-id">EVT001</td>
+                                <td class="event-name">Education Drive - Rural Schools</td>
+                                <td>2024-01-15</td>
+                                <td class="duty">Teaching Assistant</td>
+                                <td>2024-02-10</td>
+                                <td class="ngo-name">Hope Foundation</td>
+                                <td class="location">Pune, Maharashtra</td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                            </tr>
+                            <tr data-status="completed">
+                                <td class="event-id">EVT002</td>
+                                <td class="event-name">Health Camp - Free Checkups</td>
+                                <td>2024-02-20</td>
+                                <td class="duty">Registration Coordinator</td>
+                                <td>2024-03-05</td>
+                                <td class="ngo-name">Care & Cure Medical Trust</td>
+                                <td class="location">Mumbai, Maharashtra</td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                            </tr>
+                            <tr data-status="completed">
+                                <td class="event-id">EVT003</td>
+                                <td class="event-name">Tree Plantation Drive</td>
+                                <td>2024-03-10</td>
+                                <td class="duty">Site Coordinator</td>
+                                <td>2024-04-15</td>
+                                <td class="ngo-name">Green Earth Initiative</td>
+                                <td class="location">Bangalore, Karnataka</td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                            </tr>
+                            <tr data-status="completed">
+                                <td class="event-id">EVT004</td>
+                                <td class="event-name">Food Distribution Program</td>
+                                <td>2024-04-05</td>
+                                <td class="duty">Distribution Volunteer</td>
+                                <td>2024-05-01</td>
+                                <td class="ngo-name">Hunger Relief Foundation</td>
+                                <td class="location">Delhi, NCR</td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                            </tr>
+                            <tr data-status="ongoing">
+                                <td class="event-id">EVT005</td>
+                                <td class="event-name">Digital Literacy Workshop</td>
+                                <td>2024-05-15</td>
+                                <td class="duty">Technical Trainer</td>
+                                <td>2024-06-20</td>
+                                <td class="ngo-name">Tech for Good</td>
+                                <td class="location">Hyderabad, Telangana</td>
+                                <td><span class="status-badge ongoing">Ongoing</span></td>
+                            </tr>
+                            <tr data-status="completed">
+                                <td class="event-id">EVT006</td>
+                                <td class="event-name">Women Empowerment Seminar</td>
+                                <td>2024-06-01</td>
+                                <td class="duty">Event Organizer</td>
+                                <td>2024-07-10</td>
+                                <td class="ngo-name">Women's Welfare Society</td>
+                                <td class="location">Chennai, Tamil Nadu</td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                            </tr>
+                            <tr data-status="upcoming">
+                                <td class="event-id">EVT007</td>
+                                <td class="event-name">Clean Water Initiative</td>
+                                <td>2024-07-20</td>
+                                <td class="duty">Field Coordinator</td>
+                                <td>2024-08-25</td>
+                                <td class="ngo-name">Water for All</td>
+                                <td class="location">Jaipur, Rajasthan</td>
+                                <td><span class="status-badge upcoming">Upcoming</span></td>
+                            </tr>
+                            <tr data-status="upcoming">
+                                <td class="event-id">EVT008</td>
+                                <td class="event-name">Elderly Care Program</td>
+                                <td>2024-08-10</td>
+                                <td class="duty">Care Assistant</td>
+                                <td>2024-09-15</td>
+                                <td class="ngo-name">Senior Citizens Support</td>
+                                <td class="location">Kolkata, West Bengal</td>
+                                <td><span class="status-badge upcoming">Upcoming</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Summary Section -->
+            <div class="summary-section">
+                <div class="summary-card">
+                    <h3 class="summary-title">Volunteer Journey Summary</h3>
+                    <div class="summary-content">
+                        <p class="summary-text">
+                            You have been an incredible volunteer with Seva Setu! Your dedication has contributed to 
+                             community service across <strong>8 different events</strong> 
+                            supporting <strong>5 NGOs</strong> in various locations across India.
+                        </p>
+                        <p class="summary-text">
+                            Your volunteer activities have spanned education, healthcare, environment, and community 
+                            development sectors, making a real difference in people's lives.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Seva Setu</h3>
+                    <p class="footer-description">Connecting hearts, creating impact through volunteer service.</p>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html" class="footer-link">Home</a></li>
+                        <li><a href="#" class="footer-link">Dashboard</a></li>
+                        <li><a href="#" class="footer-link">Find Events</a></li>
+                        <li><a href="#" class="footer-link">My Profile</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Help Center</a></li>
+                        <li><a href="#" class="footer-link">Contact Us</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Seva Setu. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Volunteer History Page JavaScript
+
+        // Sample data for demonstration
+        const volunteerData = [
+            {
+                event_id: 'EVT001',
+                event_name: 'Education Drive - Rural Schools',
+                registration_date: '2024-01-15',
+                duty: 'Teaching Assistant',
+                event_date: '2024-02-10',
+                ngo_name: 'Hope Foundation',
+                location: 'Pune, Maharashtra',
+                status: 'completed'
+            },
+            // ... other data entries
+        ];
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const tableBody = document.getElementById('tableBody');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const rows = tableBody.querySelectorAll('tr');
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        // Filter functionality
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+
+                const filter = this.getAttribute('data-filter');
+                const rows = tableBody.querySelectorAll('tr');
+
+                rows.forEach(row => {
+                    const status = row.getAttribute('data-status');
+                    if (filter === 'all' || status === filter) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Sorting functionality
+        const sortableHeaders = document.querySelectorAll('.sortable');
+        let currentSort = { column: null, direction: 'asc' };
+
+        sortableHeaders.forEach(header => {
+            header.addEventListener('click', function() {
+                const column = this.getAttribute('data-column');
+                const rows = Array.from(tableBody.querySelectorAll('tr'));
+
+                // Determine sort direction
+                if (currentSort.column === column) {
+                    currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+                } else {
+                    currentSort.direction = 'asc';
+                }
+                currentSort.column = column;
+
+                // Sort rows
+                rows.sort((a, b) => {
+                    let aValue, bValue;
+
+                    switch (column) {
+                        case 'event_id':
+                            aValue = a.querySelector('.event-id').textContent;
+                            bValue = b.querySelector('.event-id').textContent;
+                            break;
+                        case 'event_name':
+                            aValue = a.querySelector('.event-name').textContent;
+                            bValue = b.querySelector('.event-name').textContent;
+                            break;
+                        case 'registration_date':
+                        case 'event_date':
+                            aValue = new Date(a.cells[column === 'registration_date' ? 2 : 5].textContent);
+                            bValue = new Date(b.cells[column === 'registration_date' ? 2 : 5].textContent);
+                            break;
+                        default:
+                            aValue = a.textContent;
+                            bValue = b.textContent;
+                    }
+
+                    if (aValue < bValue) return currentSort.direction === 'asc' ? -1 : 1;
+                    if (aValue > bValue) return currentSort.direction === 'asc' ? 1 : -1;
+                    return 0;
+                });
+
+                // Clear table body and append sorted rows
+                tableBody.innerHTML = '';
+                rows.forEach(row => tableBody.appendChild(row));
+
+                // Update sort icons
+                sortableHeaders.forEach(h => {
+                    const icon = h.querySelector('.sort-icon');
+                    icon.style.opacity = h === this ? '1' : '0.5';
+                });
+            });
+        });
+
+        // Add click handlers for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to table rows
+            const tableRows = document.querySelectorAll('.history-table tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function() {
+                    const eventId = this.querySelector('.event-id').textContent;
+                    // In a real application, this would navigate to event details
+                    console.log(`Clicked on event: ${eventId}`);
+                });
+            });
+
+            // Add tooltips or additional interactions as needed
+            const statusBadges = document.querySelectorAll('.status-badge');
+            statusBadges.forEach(badge => {
+                badge.addEventListener('mouseenter', function() {
+                    // Could show additional status information
+                });
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97f5b46681be1c67',t:'MTc1NzkxMzkzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
