@@ -54,6 +54,10 @@
               <input id="middle_name" name="middle_name" placeholder="Ann"/>
             </div>
             <div class="form-group">
+              <label for="username">Username</label>
+              <input id="username" name="username" required placeholder="jane_doe123"/>
+            </div>
+            <div class="form-group">
               <label for="email">Email</label>
               <input id="email" name="email" type="email" required placeholder="jane@example.com"/>
             </div>
@@ -65,14 +69,15 @@
               <label for="city">City</label>
               <input id="city" name="city" required placeholder="San Francisco"/>
             </div>
-            <div class="form-group full">
-              <label for="street_address">Street address</label>
-              <input id="street_address" name="street_address" required placeholder="123 Market St"/>
-            </div>
             <div class="form-group">
               <label for="apartment">Apartment (optional)</label>
               <input id="apartment" name="apartment" placeholder="Apt 4B"/>
             </div>
+            <div class="form-group full">
+              <label for="street_address">Street address</label>
+              <input id="street_address" name="street_address" required placeholder="123 Market St"/>
+            </div>
+            
           </div>
 
           <!-- NGO section -->
@@ -109,6 +114,15 @@
                 <label for="account_name">Account holder name (optional)</label>
                 <input id="account_name" name="account_name" placeholder="Organization or Person"/>
               </div>
+              <div class="form-group">
+              <label for="registration_id">Registration ID</label>
+              <input id="registration_id" name="registration_id" required placeholder="REG-12345"/>
+             </div>
+              <div class="form-group full">
+                <label for="document_url">Document URL for verification</label>
+                <input id="document_url" name="document_url" placeholder="https://example.com/doc.pdf"/>
+                <div class="hint">Provide a URL to a verifiable document (e.g., registration certificate).</div>
+              </div>
             </div>
           </div>
 
@@ -120,20 +134,20 @@
                 <select id="vehicle_type" name="vehicle_type">
                   <option value="Bike">Bike</option>
                   <option value="Car">Car</option>
-                  <option value="Truck">Truck</option>
+                  <option value="Premier Car">Car</option>
+                  <option value="Truck Mini">Truck</option>
+                  <option value="Truck Large">Car</option>
                 </select>
               </div>
             </div>
           </div>
 
-         <!-- Volunteer section -->
+          <!-- Volunteer section -->
           <div id="section-Volunteer" class="section visible-max">
           </div>
-            <!-- Donor section -->
+          <!-- Donor section -->
           <div id="section-Donor" class="section hidden-max">
-           
           </div>
-       
 
           <!-- Passwords -->
           <div class="form-grid">
@@ -151,7 +165,6 @@
           <div class="actions">
             <button type="submit" class="btn primary">Create account</button>
           </div>
-
         </form>
       </div>
     </section>
@@ -168,40 +181,41 @@
       NGO: document.getElementById('section-NGO'),
     };
 
-    function showSection(role){
-      Object.entries(sections).forEach(([key,el])=>{
-        if(key===role){
+    function showSection(role) {
+      Object.entries(sections).forEach(([key, el]) => {
+        if (key === role) {
           el.classList.remove('hidden-max');
           el.classList.add('visible-max');
-        }else{
+        } else {
           el.classList.remove('visible-max');
           el.classList.add('hidden-max');
         }
       });
-      roleButtons.forEach(btn=>{
-        if(btn.dataset.role===role){ btn.classList.add('role-active'); }
-        else{ btn.classList.remove('role-active'); }
+      roleButtons.forEach(btn => {
+        if (btn.dataset.role === role) { btn.classList.add('role-active'); }
+        else { btn.classList.remove('role-active'); }
       });
       roleInput.value = role;
       document.getElementById('roleHelp').textContent = `Selected: ${role}`;
     }
 
-    roleButtons.forEach(btn=>btn.addEventListener('click',()=>showSection(btn.dataset.role)));
+    roleButtons.forEach(btn => btn.addEventListener('click', () => showSection(btn.dataset.role)));
 
     // NGO chips
     const chipEls = Array.from(document.querySelectorAll('#accepted_items .chip'));
     const acceptedHidden = document.getElementById('accepted_item_types');
-    chipEls.forEach(chip=>{
-      chip.addEventListener('click', ()=>{
+    chipEls.forEach(chip => {
+      chip.addEventListener('click', () => {
         chip.classList.toggle('active');
-        const selected = chipEls.filter(c=>c.classList.contains('active')).map(c=>c.getAttribute('data-value'));
+        const selected = chipEls.filter(c => c.classList.contains('active')).map(c => c.getAttribute('data-value'));
         acceptedHidden.value = selected.join(',');
       });
     });
 
     // Submit
-    document.getElementById('signupForm').addEventListener('submit', (e)=>{
+    document.getElementById('signupForm').addEventListener('submit', (e) => {
       e.preventDefault();
+
       const pwd = document.getElementById('password').value;
       const cpwd = document.getElementById('confirm_password').value;
       if (pwd.length < 8) { alert('Password must be at least 8 characters.'); return; }
@@ -213,6 +227,8 @@
         first_name: document.getElementById('first_name').value.trim(),
         last_name: document.getElementById('last_name').value.trim(),
         middle_name: (document.getElementById('middle_name').value || '').trim() || null,
+        username: document.getElementById('username').value.trim(),
+        registration_id: document.getElementById('registration_id').value.trim(),
         email: document.getElementById('email').value.trim(),
         phone_number: document.getElementById('phone_number').value.trim(),
         city: document.getElementById('city').value.trim(),
@@ -232,7 +248,8 @@
           upi_id: (document.getElementById('upi_id').value || '').trim() || null,
           bank_account: (document.getElementById('bank_account').value || '').trim() || null,
           bank_name: (document.getElementById('bank_name').value || '').trim() || null,
-          account_name: (document.getElementById('account_name').value || '').trim() || null
+          account_name: (document.getElementById('account_name').value || '').trim() || null,
+          document_url: document.getElementById('document_url').value.trim()
         };
       } else if (role === 'PickUpAgent') {
         payload.PickUpAgent = {
@@ -240,8 +257,8 @@
         };
       } else if (role === 'Donor') {
         payload.Donor = {
-          donor_type: document.getElementById('donor_type').value,
-          total_donated: parseFloat(document.getElementById('total_donated').value || '0')
+          donor_type: document.getElementById('donor_type')?.value || 'Individual',
+          total_donated: parseFloat(document.getElementById('total_donated')?.value || '0')
         };
       }
 
