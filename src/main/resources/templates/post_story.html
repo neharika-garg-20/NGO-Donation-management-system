@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Your Story - Seva Setu</title>
+     <link rel="stylesheet" href="/css/post_story.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo/Site Name -->
+                <div class="logo">
+                    <a href="index.html" class="logo-link">Seva Setu</a>
+                </div>
+                
+                <!-- Navigation Breadcrumb -->
+                <div class="breadcrumb">
+                    <a href="index.html" class="breadcrumb-link">Home</a>
+                    <span class="breadcrumb-separator">></span>
+                    <a href="#" class="breadcrumb-link">NGO Dashboard</a>
+                    <span class="breadcrumb-separator">></span>
+                    <span class="breadcrumb-current">Post Story</span>
+                </div>
+                
+                <!-- NGO Profile -->
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <svg class="avatar-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">Hope Foundation</span>
+                        <span class="user-role">NGO Partner</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Share Your Impact Story</h1>
+                <p class="page-subtitle">Inspire others by sharing the positive change your NGO has created in the community</p>
+            </div>
+
+            <!-- Story Form -->
+            <div class="form-section">
+                <div class="form-container">
+                    <form id="storyForm" class="story-form">
+                        <!-- NGO Name Field -->
+                        <div class="form-group">
+                            <label for="ngoName" class="form-label">
+                                <svg class="label-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h3M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 8h1m-1-4h1m4 4h1m-1-4h1"></path>
+                                </svg>
+                                NGO Name
+                            </label>
+                            <input 
+                                type="text" 
+                                id="ngoName" 
+                                name="ngoName" 
+                                class="form-input" 
+                                placeholder="Enter your NGO name"
+                                value="Hope Foundation"
+                                required
+                            >
+                            <div class="error-message" id="ngoNameError"></div>
+                        </div>
+
+                        <!-- Story Title Field -->
+                        <div class="form-group">
+                            <label for="storyTitle" class="form-label">
+                                <svg class="label-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 0h10m-10 0a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2"></path>
+                                </svg>
+                                Story Title
+                            </label>
+                            <input 
+                                type="text" 
+                                id="storyTitle" 
+                                name="storyTitle" 
+                                class="form-input" 
+                                placeholder="Give your story a compelling title"
+                                required
+                            >
+                            <div class="error-message" id="storyTitleError"></div>
+                        </div>
+
+                        <!-- Impact Category -->
+                        <div class="form-group">
+                            <label for="impactCategory" class="form-label">
+                                <svg class="label-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                </svg>
+                                Impact Category
+                            </label>
+                            <select id="impactCategory" name="impactCategory" class="form-select" required>
+                                <option value="">Select category</option>
+                                <option value="education">Education</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="environment">Environment</option>
+                                <option value="poverty">Poverty Alleviation</option>
+                                <option value="women-empowerment">Women Empowerment</option>
+                                <option value="child-welfare">Child Welfare</option>
+                                <option value="elderly-care">Elderly Care</option>
+                                <option value="disaster-relief">Disaster Relief</option>
+                                <option value="community-development">Community Development</option>
+                            </select>
+                            <div class="error-message" id="impactCategoryError"></div>
+                        </div>
+
+                        <!-- Image Upload -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                <svg class="label-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                Story Image
+                            </label>
+                            <div class="image-upload-container">
+                                <div class="image-upload-area" id="imageUploadArea">
+                                    <div class="upload-placeholder" id="uploadPlaceholder">
+                                        <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                        </svg>
+                                        <p class="upload-text">Click to upload or drag and drop</p>
+                                        <p class="upload-subtext">PNG, JPG, GIF up to 5MB</p>
+                                    </div>
+                                    <div class="image-preview" id="imagePreview" style="display: none;">
+                                        <img id="previewImg" src="" alt="Preview">
+                                        <button type="button" class="remove-image" id="removeImage">
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="file" id="storyImage" name="storyImage" accept="image/*" style="display: none;">
+                            </div>
+                            <div class="error-message" id="storyImageError"></div>
+                        </div>
+
+                        <!-- Story Content -->
+                        <div class="form-group">
+                            <label for="storyContent" class="form-label">
+                                <svg class="label-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                </svg>
+                                Your Impact Story
+                            </label>
+                            <div class="textarea-container">
+                                <textarea 
+                                    id="storyContent" 
+                                    name="storyContent" 
+                                    class="form-textarea" 
+                                    placeholder="Share your story of impact... Tell us about the lives you've touched, the communities you've helped, and the positive change you've created. Be specific about the challenges you addressed and the outcomes you achieved."
+                                    rows="8"
+                                    maxlength="2000"
+                                    required
+                                ></textarea>
+                                <div class="character-counter">
+                                    <span id="charCount">0</span>/2000 characters
+                                </div>
+                            </div>
+                            <div class="error-message" id="storyContentError"></div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary" id="postStory">
+                                <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                </svg>
+                                Post Story
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Guidelines Sidebar -->
+                <div class="guidelines-sidebar">
+                    <div class="guidelines-card">
+                        <h3 class="guidelines-title">
+                            <svg class="guidelines-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            Story Guidelines
+                        </h3>
+                        <ul class="guidelines-list">
+                            <li>Share authentic, real impact stories</li>
+                            <li>Include specific numbers and outcomes</li>
+                            <li>Use high-quality, relevant images</li>
+                            <li>Keep stories engaging and inspiring</li>
+                            <li>Respect privacy of beneficiaries</li>
+                            <li>Focus on positive community impact</li>
+                        </ul>
+                    </div>
+
+                    <div class="tips-card">
+                        <h3 class="tips-title">
+                            <svg class="tips-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 11H7v8h2v-8zm4 0h-2v8h2v-8zm4 0h-2v8h2v-8zm2.5-5H18V4c0-.55-.45-1-1-1h-2V1.5c0-.28-.22-.5-.5-.5s-.5.22-.5.5V3H8V1.5c0-.28-.22-.5-.5-.5s-.5.22-.5.5V3H5c-.55 0-1 .45-1 1v2H2.5c-.28 0-.5.22-.5.5s.22.5.5.5H4v11c0 .55.45 1 1 1h12c.55 0 1-.45 1-1V7h1.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5z"/>
+                            </svg>
+                            Writing Tips
+                        </h3>
+                        <ul class="tips-list">
+                            <li><strong>Start with impact:</strong> Begin with the change you created</li>
+                            <li><strong>Tell a story:</strong> Use narrative structure with beginning, middle, end</li>
+                            <li><strong>Be specific:</strong> Use numbers, dates, and concrete details</li>
+                            <li><strong>Show emotion:</strong> Help readers connect with your cause</li>
+                            <li><strong>End with hope:</strong> Inspire others to take action</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal" style="display: none;">
+        <div class="modal-content">
+            <div class="success-animation">
+                <svg class="success-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <h2 class="success-title">Story Posted Successfully!</h2>
+            <p class="success-message">Your impact story has been shared with the community. Thank you for inspiring others with your work!</p>
+            <div class="success-actions">
+                <button class="btn-primary" id="viewStory">View Story</button>
+                <button class="btn-secondary" id="postAnother">Post Another Story</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Seva Setu</h3>
+                    <p class="footer-description">Empowering NGOs to share their impact stories and inspire positive change.</p>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">For NGOs</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">NGO Dashboard</a></li>
+                        <li><a href="#" class="footer-link">Post Stories</a></li>
+                        <li><a href="#" class="footer-link">Manage Events</a></li>
+                        <li><a href="#" class="footer-link">Analytics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Help Center</a></li>
+                        <li><a href="#" class="footer-link">Contact Us</a></li>
+                        <li><a href="#" class="footer-link">Guidelines</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Seva Setu. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Post Story Page JavaScript
+
+        // Form elements
+        const storyForm = document.getElementById('storyForm');
+        const imageUploadArea = document.getElementById('imageUploadArea');
+        const imageInput = document.getElementById('storyImage');
+        const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+        const removeImageBtn = document.getElementById('removeImage');
+        const storyContent = document.getElementById('storyContent');
+        const charCount = document.getElementById('charCount');
+        const successModal = document.getElementById('successModal');
+
+        // Character counter
+        storyContent.addEventListener('input', function() {
+            const count = this.value.length;
+            charCount.textContent = count;
+            
+            if (count > 1800) {
+                charCount.style.color = 'var(--red-600)';
+            } else if (count > 1500) {
+                charCount.style.color = 'var(--orange-600)';
+            } else {
+                charCount.style.color = 'var(--gray-500)';
+            }
+        });
+
+        // Image upload functionality
+        imageUploadArea.addEventListener('click', () => {
+            imageInput.click();
+        });
+
+        imageUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            imageUploadArea.classList.add('dragover');
+        });
+
+        imageUploadArea.addEventListener('dragleave', () => {
+            imageUploadArea.classList.remove('dragover');
+        });
+
+        imageUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            imageUploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleImageUpload(files[0]);
+            }
+        });
+
+        imageInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleImageUpload(e.target.files[0]);
+            }
+        });
+
+        removeImageBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            clearImagePreview();
+        });
+
+        function handleImageUpload(file) {
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                showError('storyImageError', 'Please select a valid image file.');
+                return;
+            }
+
+            // Validate file size (5MB limit)
+            if (file.size > 5 * 1024 * 1024) {
+                showError('storyImageError', 'Image size must be less than 5MB.');
+                return;
+            }
+
+            // Clear any previous errors
+            clearError('storyImageError');
+
+            // Create preview
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImg.src = e.target.result;
+                uploadPlaceholder.style.display = 'none';
+                imagePreview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearImagePreview() {
+            uploadPlaceholder.style.display = 'block';
+            imagePreview.style.display = 'none';
+            previewImg.src = '';
+            imageInput.value = '';
+        }
+
+        // Form validation
+        function validateForm() {
+            let isValid = true;
+
+            // Validate NGO name
+            const ngoName = document.getElementById('ngoName').value.trim();
+            if (!ngoName) {
+                showError('ngoNameError', 'NGO name is required.');
+                isValid = false;
+            } else {
+                clearError('ngoNameError');
+            }
+
+            // Validate story title
+            const storyTitle = document.getElementById('storyTitle').value.trim();
+            if (!storyTitle) {
+                showError('storyTitleError', 'Story title is required.');
+                isValid = false;
+            } else if (storyTitle.length < 10) {
+                showError('storyTitleError', 'Title should be at least 10 characters long.');
+                isValid = false;
+            } else {
+                clearError('storyTitleError');
+            }
+
+            // Validate impact category
+            const impactCategory = document.getElementById('impactCategory').value;
+            if (!impactCategory) {
+                showError('impactCategoryError', 'Please select an impact category.');
+                isValid = false;
+            } else {
+                clearError('impactCategoryError');
+            }
+
+            // Validate story content
+            const storyContentValue = storyContent.value.trim();
+            if (!storyContentValue) {
+                showError('storyContentError', 'Story content is required.');
+                isValid = false;
+            } else if (storyContentValue.length < 100) {
+                showError('storyContentError', 'Story should be at least 100 characters long.');
+                isValid = false;
+            } else {
+                clearError('storyContentError');
+            }
+
+            // Validate image (optional but recommended)
+            if (!imageInput.files.length) {
+                showError('storyImageError', 'Adding an image will make your story more engaging.');
+                // Don't set isValid to false as image is optional
+            } else {
+                clearError('storyImageError');
+            }
+
+            return isValid;
+        }
+
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            const inputElement = errorElement.previousElementSibling;
+            
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+            
+            if (inputElement.classList.contains('form-input') || 
+                inputElement.classList.contains('form-select') || 
+                inputElement.classList.contains('form-textarea')) {
+                inputElement.classList.add('error');
+            }
+        }
+
+        function clearError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            const inputElement = errorElement.previousElementSibling;
+            
+            errorElement.classList.remove('show');
+            
+            if (inputElement.classList.contains('form-input') || 
+                inputElement.classList.contains('form-select') || 
+                inputElement.classList.contains('form-textarea')) {
+                inputElement.classList.remove('error');
+            }
+        }
+
+        // Form submission
+        storyForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (validateForm()) {
+                // Simulate form submission
+                const submitBtn = document.getElementById('postStory');
+                const originalText = submitBtn.innerHTML;
+                
+                submitBtn.innerHTML = '<svg class="btn-icon animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>Posting...';
+                submitBtn.disabled = true;
+
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    showSuccessModal();
+                }, 2000);
+            }
+        });
+
+        // Save draft functionality
+        document.getElementById('saveDraft').addEventListener('click', () => {
+            const formData = new FormData(storyForm);
+            const draftData = {};
+            
+            for (let [key, value] of formData.entries()) {
+                draftData[key] = value;
+            }
+            
+            localStorage.setItem('storyDraft', JSON.stringify(draftData));
+            
+            // Show temporary success message
+            const btn = document.getElementById('saveDraft');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Saved!';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2000);
+        });
+
+        // Success modal functionality
+        function showSuccessModal() {
+            successModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideSuccessModal() {
+            successModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('viewStory').addEventListener('click', () => {
+            hideSuccessModal();
+            // In a real app, this would navigate to the story page
+            alert('Redirecting to your published story...');
+        });
+
+        document.getElementById('postAnother').addEventListener('click', () => {
+            hideSuccessModal();
+            storyForm.reset();
+            clearImagePreview();
+            charCount.textContent = '0';
+            // Clear all errors
+            document.querySelectorAll('.error-message').forEach(error => {
+                error.classList.remove('show');
+            });
+            document.querySelectorAll('.error').forEach(input => {
+                input.classList.remove('error');
+            });
+        });
+
+        // Close modal on overlay click
+        successModal.addEventListener('click', (e) => {
+            if (e.target === successModal) {
+                hideSuccessModal();
+            }
+        });
+
+        // Load draft on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedDraft = localStorage.getItem('storyDraft');
+            if (savedDraft) {
+                const draftData = JSON.parse(savedDraft);
+                
+                // Populate form fields
+                Object.keys(draftData).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element && key !== 'storyImage') {
+                        element.value = draftData[key];
+                        if (key === 'storyContent') {
+                            charCount.textContent = element.value.length;
+                        }
+                    }
+                });
+            }
+        });
+
+        // Auto-save draft every 30 seconds
+        setInterval(() => {
+            const formData = new FormData(storyForm);
+            const hasContent = formData.get('storyTitle') || formData.get('storyContent');
+            
+            if (hasContent) {
+                const draftData = {};
+                for (let [key, value] of formData.entries()) {
+                    if (key !== 'storyImage') {
+                        draftData[key] = value;
+                    }
+                }
+                localStorage.setItem('storyDraft', JSON.stringify(draftData));
+            }
+        }, 30000);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97f5f569741f8ae7',t:'MTc1NzkxNjYwMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -61,4 +61,19 @@ public class HomeController {
     model.addAttribute("pageTitle", "NGO History");
     return "ngo_history"; 
     }
+     @GetMapping("/volunteer_history")
+    public String volunteer_history(Model model) {
+        model.addAttribute("pageTitle", "HISTORY OF VOLUNTEER");
+        return "history_volunteer";
+    }
+     @GetMapping("/pickup_history")
+    public String pickup_agent_history(Model model) {
+        model.addAttribute("pageTitle", "HISTORY OF PICKUP AGENT");
+        return "pickup_agent_history";
+    }
+     @GetMapping("/post_story")
+    public String post_story(Model model) {
+        model.addAttribute("pageTitle", "POST IMPACT STORIES");
+        return "post_story";
+    }
 }
