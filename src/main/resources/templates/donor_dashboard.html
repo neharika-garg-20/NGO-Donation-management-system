@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Donor Dashboard</title>
+  <link rel="stylesheet" href="css/donor_dashboard.css">
+</head>
+<body class="grain">
+  <header class="page-head">
+    <div class="head-inner">
+      <a class="brand" href="#">
+        <div class="brand-mark">🎁</div>
+        <div class="brand-title">Donor Dashboard</div>
+      </a>
+      <span class="note">Manage your profile and see your impact</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="container">
+      <!-- Profile and Badge -->
+      <section class="section">
+        <div class="sec-head">
+          <div>
+            <h2 class="sec-title">Your Profile</h2>
+            <p class="sec-sub">Update your contact details and address anytime.</p>
+          </div>
+          <div id="badge" class="badge-wrap gold">
+            <div class="shine"></div>
+            <div class="badge-medal">★</div>
+            <div class="badge-text">
+              <span id="badgeTier" class="badge-tier">Gold</span>
+              <span id="badgeNote" class="badge-note">Thank you for your awesome support!</span>
+            </div>
+          </div>
+        </div>
+        <div class="sec-body profile">
+          <div class="card">
+            <div class="hstack">
+              <div class="avatar" id="avatar">AS</div>
+              <div class="vstack">
+                <h3 class="name" id="name">Anita Sharma</h3>
+                <p class="username" id="username">@anita_s</p>
+              </div>
+            </div>
+            <div class="metrics" style="margin-top:14px;">
+              <div class="metric">
+                <div class="label">Total Donations</div>
+                <div class="value" id="donationCount">0</div>
+              </div>
+              <div class="metric">
+                <div class="label">Total NGOs Donated</div>
+                <div class="value" id="ngosCount">3</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <form id="profileForm">
+              <div class="grid two">
+                <div>
+                  <label for="email">Email</label>
+                  <input id="email" type="email" placeholder="you@example.com" value="anita@example.com" required/>
+                </div>
+                <div>
+                  <label for="phone">Phone</label>
+                  <input id="phone" type="tel" placeholder="+91 90000 00000" value="+91 91234 56789" required/>
+                </div>
+                <div>
+                  <label for="address">Address</label>
+                  <input id="address" type="text" placeholder="Street, Area" value="12, Rose Lane"/>
+                </div>
+                <div>
+                  <label for="city">City</label>
+                  <select id="city">
+                    <option>Mumbai</option>
+                    <option>Pune</option>
+                    <option>Delhi</option>
+                    <option>Bengaluru</option>
+                    <option>Kolkata</option>
+                  </select>
+                </div>
+              </div>
+              <div class="help" style="margin-top:6px;">Name and username are shown for reference and cannot be changed here.</div>
+              <div class="actions">
+                <!-- Cancel button removed -->
+                <button type="submit" class="btn primary">Save changes</button>
+              </div>
+              <div id="successMsg" class="sec-sub" style="display:none; color:var(--good); margin-top:8px;">Saved! Your profile was updated.</div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- Donations Breakdown -->
+      <section class="section" id="donationsSection">
+        <div class="sec-head">
+          <div>
+            <h2 class="sec-title">Your Donations</h2>
+            <p class="sec-sub">Breakdown by type. Total updates automatically — not editable.</p>
+          </div>
+        </div>
+        <div class="sec-body">
+          <div class="chips">
+            <div class="chip food">
+              <div class="left">🍎 Food</div>
+              <div class="count"><span id="cFood">0</span></div>
+            </div>
+            <div class="chip fund">
+              <div class="left">💸 Fund</div>
+              <div class="count"><span id="cFund">0</span></div>
+            </div>
+            <div class="chip toys">
+              <div class="left">🧸 Toys</div>
+              <div class="count"><span id="cToys">0</span></div>
+            </div>
+            <div class="chip clothes">
+              <div class="left">👕 Clothes</div>
+              <div class="count"><span id="cClothes">0</span></div>
+            </div>
+          </div>
+
+          <div class="footer-cta">
+            <div class="sec-sub">Tier rules: Silver 0–4, Gold 5–9, Platinum 10+ (based on total donations).</div>
+            <!-- History button left as a simple button with no behavior -->
+            <button id="historyBtn" class="btn primary">View Donations History</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // Demo profile + donations breakdown
+    const profile = {
+      name: 'Anita Sharma',
+      username: 'anita_s',
+      email: 'anita@example.com',
+      phone: '+91 91234 56789',
+      address: '12, Rose Lane',
+      city: 'Mumbai',
+      ngosCount: 3 // Total NGOs where donated (data-only)
+    };
+
+    // Category counts (UI is read-only)
+    const donationCategories = {
+      food: 3,
+      fund: 2,
+      toys: 1,
+      clothes: 0
+    };
+
+    // Elements
+    const nameEl = document.getElementById('name');
+    const usernameEl = document.getElementById('username');
+    const avatarEl = document.getElementById('avatar');
+    const donationCountEl = document.getElementById('donationCount');
+    const ngosCountEl = document.getElementById('ngosCount');
+
+    const emailEl = document.getElementById('email');
+    const phoneEl = document.getElementById('phone');
+    const addressEl = document.getElementById('address');
+    const cityEl = document.getElementById('city');
+    const formEl = document.getElementById('profileForm');
+    const successMsg = document.getElementById('successMsg');
+
+    const cFood = document.getElementById('cFood');
+    const cFund = document.getElementById('cFund');
+    const cToys = document.getElementById('cToys');
+    const cClothes = document.getElementById('cClothes');
+
+    const badgeWrap = document.getElementById('badge');
+    const badgeTier = document.getElementById('badgeTier');
+    const badgeNote = document.getElementById('badgeNote');
+
+    // Utils
+    function initialsFromName(n){
+      const parts = n.trim().split(/\s+/);
+      return (parts[0]?.[0] || '').toUpperCase() + (parts[1]?.[0] || '').toUpperCase();
+    }
+    function totalDonations(){
+      return donationCategories.food + donationCategories.fund + donationCategories.toys + donationCategories.clothes;
+    }
+    function computeBadge(count){
+      if (count >= 10) return { key:'platinum', label:'Platinum', note:'Legendary supporter' };
+      if (count >= 5)  return { key:'gold', label:'Gold', note:'Amazing generosity' };
+      return { key:'silver', label:'Silver', note:'Great start — thank you!' };
+    }
+    function renderBadge(count){
+      badgeWrap.classList.remove('silver','gold','platinum');
+      const b = computeBadge(count);
+      badgeWrap.classList.add(b.key);
+      badgeTier.textContent = b.label;
+      badgeNote.textContent = b.note;
+    }
+    function renderProfile(){
+      nameEl.textContent = profile.name;
+      usernameEl.textContent = '@' + profile.username;
+      avatarEl.textContent = initialsFromName(profile.name);
+
+      // Contact
+      emailEl.value = profile.email;
+      phoneEl.value = profile.phone;
+      addressEl.value = profile.address;
+      cityEl.value = profile.city;
+
+      // Counts
+      cFood.textContent = donationCategories.food;
+      cFund.textContent = donationCategories.fund;
+      cToys.textContent = donationCategories.toys;
+      cClothes.textContent = donationCategories.clothes;
+
+      const total = totalDonations();
+      donationCountEl.textContent = total;
+      ngosCountEl.textContent = profile.ngosCount;
+
+      renderBadge(total);
+    }
+
+    // Save handler
+    formEl.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      profile.email = emailEl.value.trim();
+      profile.phone = phoneEl.value.trim();
+      profile.address = addressEl.value.trim();
+      profile.city = cityEl.value;
+      successMsg.style.display = 'block';
+      setTimeout(()=> successMsg.style.display = 'none', 2000);
+    });
+
+    // Init
+    renderProfile();
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97f613469655c6d2',t:'MTc1NzkxNzgyNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
