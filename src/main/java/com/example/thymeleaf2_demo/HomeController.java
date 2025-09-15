@@ -93,5 +93,11 @@ public class HomeController {
     model.addAttribute("pageTitle", "Donor Dashboard");
     return "donor_dashboard"; 
     }
+
+    @GetMapping("/admin")
+    public String admin(Model model) {
+    model.addAttribute("pageTitle", "ADMIN");
+    return "admin"; 
+    }
 }
 

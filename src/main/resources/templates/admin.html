@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Donation Platform • Super Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Friendly, clean font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<link rel = "stylesheet" href="/css/admin.css">
+<body>
+  <div class="container" role="main">
+    <header aria-label="Dashboard header">
+      <div class="brand">
+        <div class="brand-badge" aria-hidden="true">
+          <!-- Heart-hands icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#7a512d" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 21s-7-4.35-9.33-8.06C1.14 10.25 2 7.89 4.26 7.2c1.79-.53 3.42.43 4.1 1.73.68-1.3 2.31-2.26 4.1-1.73 2.26.69 3.12 3.05 1.59 5.74C19 16.65 12 21 12 21z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="title">Donation Admin Dashboard</div>
+          <div class="subtitle">Superuser overview of people, donations, approvals, and inventory</div>
+        </div>
+      </div>
+      <div class="user-actions">
+        <button class="btn" id="refreshBtn" aria-label="Refresh data">Refresh</button>
+      </div>
+    </header>
+
+    <!-- Top summary and quick-access tiles -->
+    <section class="grid top" aria-label="Summary tiles">
+      <!-- Stats 1 -->
+      <div class="card stat-tile" role="button" tabindex="0" aria-label="Total users">
+        <div class="icon-wrap" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#7a512d" xmlns="http://www.w3.org/2000/svg"><path d="M16 11c1.66 0 2.99-1.79 2.99-4S17.66 3 16 3s-3 1.79-3 4 1.34 4 3 4zm-8 0c1.66 0 3-1.79 3-4S9.66 3 8 3 5 4.79 5 7s1.34 4 3 4zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V20h6v-3.5C23 14.17 18.33 13 16 13z"/></svg>
+        </div>
+        <div class="stat-content">
+          <div class="label">Total Users</div>
+          <div class="value" id="totalUsers">4,280</div>
+          <div class="mini-stats">
+            <span>Donors 1,136</span>
+            <span>NGOs 182</span>
+            <span>Agents 64</span>
+          </div>
+          <a href="#list-ngos" class="tile-link" data-open-list="ngos" aria-label="View users">Browse users</a>
+        </div>
+      </div>
+
+      <!-- Stats 2 -->
+      <div class="card stat-tile" role="button" tabindex="0" aria-label="Active donors">
+        <div class="icon-wrap" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#7a512d" xmlns="http://www.w3.org/2000/svg"><path d="M12.1 21.55c-.3.28-.8.28-1.1 0C5.14 16.24 2 13.39 2 9.5 2 7 4 5 6.5 5c1.74 0 3.41 1.01 4.22 2.52C11.09 6.01 12.76 5 14.5 5 17 5 19 7 19 9.5c0 3.89-3.14 6.74-6.9 12.05z"/></svg>
+        </div>
+        <div class="stat-content">
+          <div class="label">Active Donors</div>
+          <div class="value" id="activeDonors">1,136</div>
+          <div class="mini-stats">
+            <span>+84 signups</span>
+            <span>Last 7d</span>
+          </div>
+          <a href="#list-donors" class="tile-link" data-open-list="donors" aria-label="View donors">View donors</a>
+        </div>
+      </div>
+
+      <!-- Stats 3 -->
+      <div class="card stat-tile" role="button" tabindex="0" aria-label="Recent signups">
+        <div class="icon-wrap" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#7a512d" xmlns="http://www.w3.org/2000/svg"><path d="M12 6V4l-8 8 8 8v-2h8V6z"/></svg>
+        </div>
+        <div class="stat-content">
+          <div class="label">Recent Signups</div>
+          <div class="value" id="recentSignups">84</div>
+          <div class="mini-stats">
+            <span>Donors +53</span>
+            <span>Volunteers +31</span>
+          </div>
+          <a href="#list-volunteers" class="tile-link" data-open-list="volunteers" aria-label="View recent signups">View signups</a>
+        </div>
+      </div>
+
+      <!-- Quick Access spanning full width -->
+      <div class="card quick-access" aria-label="Quick access">
+        <h3>Quick Access</h3>
+        <div class="row">
+          <a href="#list-donors" class="tile-link" data-open-list="donors" aria-label="Open donors list"><span aria-hidden="true">🧑‍🤝‍🧑</span> Donors</a>
+          <a href="#list-agents" class="tile-link" data-open-list="agents" aria-label="Open pickup agents list"><span aria-hidden="true">🚚</span> Pickup Agents</a>
+          <a href="#list-ngos" class="tile-link" data-open-list="ngos" aria-label="Open NGOs list"><span aria-hidden="true">🏛️</span> NGOs</a>
+          <a href="#list-volunteers" class="tile-link" data-open-list="volunteers" aria-label="Open volunteers list"><span aria-hidden="true">🤝</span> Event Volunteers</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="band" aria-hidden="true"></div>
+
+    <!-- Main: Transactions (full-bleed) -->
+    <section class="grid main" aria-label="Core panels" style="grid-template-columns: 1fr;">
+      <div class="card" aria-labelledby="tx-title">
+        <h3 id="tx-title">Donation Transactions</h3>
+        <div class="table-wrap" role="region" aria-label="Donation transactions table">
+          <table aria-describedby="tx-title">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Donor</th>
+                <th scope="col">Item</th>
+                <th scope="col">Qty (Unit)</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody id="txBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Approvals (full-bleed) -->
+      <div class="card panel-accent" aria-labelledby="approval-title">
+        <div class="row" style="justify-content: space-between;">
+          <h3 id="approval-title">NGO Registrations Pending <span class="counter-badge" id="pendingCount">0</span></h3>
+          <button class="btn small" id="approveAllBtn" aria-label="Approve all pending NGOs">Approve All</button>
+        </div>
+        <div class="row muted" style="margin-bottom: 8px;">
+          <span aria-hidden="true">⭐</span>
+          <div>Open “View” to check details, contacts, and certificates, then approve or reject.</div>
+        </div>
+        <div id="approvalsList" class="grid" style="gap: 10px;" role="list" aria-label="Pending NGO registrations"></div>
+      </div>
+    </section>
+
+    <div class="band" aria-hidden="true"></div>
+
+    <!-- Charts (both full-bleed, stacked) -->
+    <section class="grid charts" aria-label="Inventory overview" style="grid-template-columns: 1fr;">
+      <!-- Global Inventory (full-bleed) -->
+      <div class="card chart" aria-labelledby="chart-global-title">
+        <h4 id="chart-global-title">Global Inventory Overview</h4>
+        <div class="gi-wrap">
+          <div id="giStack" class="gi-stacked" role="img" aria-label="Distribution across Food, Funds, Toys, Clothes">
+            <div class="gi-seg seg-food" title="Food"></div>
+            <div class="gi-seg seg-funds" title="Funds"></div>
+            <div class="gi-seg seg-toys" title="Toys"></div>
+            <div class="gi-seg seg-clothes" title="Clothes"></div>
+          </div>
+          <div class="gi-legend" id="giLegend" role="list" aria-label="Totals by item">
+            <!-- Totals injected -->
+          </div>
+        </div>
+      </div>
+
+      <!-- NGO Inventory (full-bleed) -->
+      <div class="card chart" aria-labelledby="chart-ngo-title">
+        <h4 id="chart-ngo-title">Inventory by NGO</h4>
+        <div class="ngo-inventory" id="ngoInventory" role="list" aria-label="Per NGO stock levels"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Slide-in lists drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true" aria-label="Directory drawer">
+    <div class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+      <div class="drawer-header">
+        <div>
+          <div class="title" id="drawerTitle">Directory</div>
+          <div class="subtitle" id="drawerSubtitle">Browse and manage records</div>
+        </div>
+        <button class="btn small" id="closeDrawerBtn" aria-label="Close list">Close</button>
+      </div>
+      <div>
+        <div class="search">
+          <input id="searchInput" class="input" type="search" placeholder="Search..." aria-label="Search in list"/>
+        </div>
+        <div class="list" id="listContainer" role="list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: NGO details -->
+  <div class="modal" id="ngoModal" aria-hidden="true" aria-label="NGO details">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="ngoModalTitle">
+      <div class="modal-header">
+        <div>
+          <div class="title" id="ngoModalTitle">NGO Details</div>
+          <div class="subtitle" id="ngoModalSubtitle">Review documents and contacts</div>
+        </div>
+        <button class="btn small" id="closeNgoModal" aria-label="Close details">Close</button>
+      </div>
+      <div class="modal-grid">
+        <div class="modal-section">
+          <h3>Organization</h3>
+          <div id="ngoOrgDetails" class="muted"></div>
+        </div>
+        <div class="modal-section">
+          <h3>Contacts</h3>
+          <div id="ngoContacts" class="muted"></div>
+        </div>
+        <div class="modal-section" style="grid-column: 1 / -1;">
+          <h3>Certificates</h3>
+          <div id="ngoCertificates" class="muted"></div>
+        </div>
+      </div>
+      <div class="row" style="justify-content: flex-end; margin-top: 12px;">
+        <button class="btn danger" id="rejectNgoBtn">Reject</button>
+        <button class="btn success" id="approveNgoBtn">Approve</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // Sample datasets
+    const transactions = [
+      { id: 1, date: '2025-09-14', donor: 'Asha Gupta', item: 'Food', qty: 20, unit: 'kg', status: 'Completed' },
+      { id: 2, date: '2025-09-13', donor: 'Rahul Mehta', item: 'Funds', qty: 5000, unit: 'INR', status: 'Pending' },
+      { id: 3, date: '2025-09-12', donor: 'GreenHands Org', item: 'Toys', qty: 120, unit: 'pcs', status: 'Completed' },
+      { id: 4, date: '2025-09-12', donor: 'Neha Verma', item: 'Clothes', qty: 45, unit: 'pcs', status: 'Cancelled' },
+      { id: 5, date: '2025-09-11', donor: 'BrightTech Ltd', item: 'Food', qty: 80, unit: 'kg', status: 'Pending' },
+    ];
+
+    const pendingNGOs = [
+      { id: 'ngo-101', name: 'Helping Hope Foundation', city: 'Mumbai', regId: 'MH/2025/001', docs: 'PAN, 80G', submitted: '2 days ago',
+        contacts: [{name:'Anita Sharma', role:'Director', phone:'+91-98XXXXXX10', email:'anita@helpinghope.org'}],
+        certificates: ['PAN', '80G']
+      },
+      { id: 'ngo-102', name: 'Sunrise Trust', city: 'Delhi', regId: 'DL/2025/014', docs: 'PAN, 12A, 80G', submitted: '1 day ago',
+        contacts: [{name:'Arjun Singh', role:'Coordinator', phone:'+91-99XXXXXX45', email:'arjun@sunrisetrust.in'}],
+        certificates: ['PAN', '12A', '80G']
+      },
+      { id: 'ngo-103', name: 'Care & Share', city: 'Bengaluru', regId: 'KA/2025/209', docs: 'PAN', submitted: '4 hours ago',
+        contacts: [{name:'Sahana Rao', role:'Admin', phone:'+91-97XXXXXX22', email:'sahana@careandshare.org'}],
+        certificates: ['PAN']
+      },
+    ];
+
+    const directory = {
+      donors: [
+        { name: 'Asha Gupta', info: 'Donor • Mumbai • 12 donations', slug: 'asha-gupta' },
+        { name: 'Rahul Mehta', info: 'Donor • Pune • 8 donations', slug: 'rahul-mehta' },
+        { name: 'BrightTech Ltd', info: 'Corporate Donor • Bengaluru • 34 donations', slug: 'brighttech-ltd' },
+      ],
+      agents: [
+        { name: 'Sandeep Kumar', info: 'Pickup Agent • South Zone • 126 pickups', slug: 'sandeep-kumar' },
+        { name: 'Priya Nair', info: 'Pickup Agent • Central Zone • 94 pickups', slug: 'priya-nair' },
+      ],
+      ngos: [
+        { name: 'GreenHands Org', info: 'NGO • Delhi • 3 centers', slug: 'greenhands-org' },
+        { name: 'Food4All', info: 'NGO • Kolkata • 2 centers', slug: 'food4all' },
+      ],
+      volunteers: [
+        { name: 'Meera Rao', info: 'Event Volunteer • 14 events', slug: 'meera-rao' },
+        { name: 'Ishaan Talwar', info: 'Event Volunteer • 9 events', slug: 'ishaan-talwar' },
+        { name: 'Riya Bose', info: 'Event Volunteer • 7 events', slug: 'riya-bose' },
+      ]
+    };
+
+    // Global inventory values (Food, Funds, Toys, Clothes)
+    const inventoryByType = [
+      { key:'food',    label: 'Food',    value: 500 },
+      { key:'funds',   label: 'Funds',   value: 180000 },
+      { key:'toys',    label: 'Toys',    value: 380 },
+      { key:'clothes', label: 'Clothes', value: 410 },
+    ];
+
+    // Inventory by NGO with units per type
+    const inventoryByNGO = [
+      { name: 'GreenHands Org', items: { foodKg: 140, fundsInr: 42000, toys: 80, clothes: 110 } },
+      { name: 'Food4All', items: { foodKg: 120, fundsInr: 52000, toys: 60, clothes: 90 } },
+      { name: 'Helping Hope Foundation', items: { foodKg: 90, fundsInr: 36000, toys: 70, clothes: 50 } },
+      { name: 'Sunrise Trust', items: { foodKg: 60, fundsInr: 50000, toys: 40, clothes: 60 } },
+    ];
+
+    // Utilities
+    const $ = (sel, root=document) => root.querySelector(sel);
+    function toast(msg){
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(()=> t.classList.remove('show'), 1800);
+    }
+
+    // Transactions
+    function renderTransactions(){
+      const body = document.getElementById('txBody');
+      body.innerHTML = '';
+      for(const tx of transactions){
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${tx.date}</td>
+          <td>${tx.donor}</td>
+          <td>${tx.item}</td>
+          <td>${tx.qty} ${tx.unit}</td>
+          <td>${badgeFor(tx.status)}</td>
+        `;
+        body.appendChild(tr);
+      }
+    }
+    function badgeFor(status){
+      const s = status.toLowerCase();
+      if(s==='completed') return `<span class="badge completed">Completed</span>`;
+      if(s==='pending') return `<span class="badge pending">Pending</span>`;
+      if(s==='cancelled') return `<span class="badge cancelled">Cancelled</span>`;
+      return `<span class="badge">${status}</span>`;
+    }
+
+    // Approvals
+    function renderApprovals(){
+      const list = document.getElementById('approvalsList');
+      list.innerHTML = '';
+      for(const item of pendingNGOs){
+        const el = document.createElement('div');
+        el.className = 'approval-item';
+        el.setAttribute('role','listitem');
+        el.innerHTML = `
+          <div>
+            <div style="font-weight:800">${item.name}</div>
+            <div class="approval-meta">City: ${item.city} • Reg: ${item.regId} • Submitted: ${item.submitted}</div>
+          </div>
+          <div class="row">
+            <button class="btn small link" data-ngoview="${item.id}" aria-label="View ${item.name}">View</button>
+          </div>
+        `;
+        list.appendChild(el);
+      }
+      document.getElementById('pendingCount').textContent = pendingNGOs.length;
+      document.getElementById('approveAllBtn').disabled = pendingNGOs.length === 0;
+    }
+
+    // NGO Modal logic
+    const ngoModal = document.getElementById('ngoModal');
+    let currentNgoId = null;
+    function openNgoModal(ngoId){
+      const ngo = pendingNGOs.find(n=>n.id===ngoId);
+      if(!ngo){ return; }
+      currentNgoId = ngoId;
+      document.getElementById('ngoModalTitle').textContent = ngo.name;
+      document.getElementById('ngoModalSubtitle').textContent = `${ngo.city} • Reg: ${ngo.regId}`;
+      document.getElementById('ngoOrgDetails').innerHTML = `
+        <div><strong>Registration:</strong> ${ngo.regId}</div>
+        <div><strong>Location:</strong> ${ngo.city}</div>
+        <div><strong>Submitted:</strong> ${ngo.submitted}</div>
+      `;
+      document.getElementById('ngoContacts').innerHTML = ngo.contacts.map(c=>`
+        <div><strong>${c.name}</strong> — ${c.role}<br><span class="muted">${c.phone} • ${c.email}</span></div>
+      `).join('');
+      document.getElementById('ngoCertificates').textContent = ngo.certificates.join(', ');
+      ngoModal.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeNgoModal(){
+      ngoModal.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      currentNgoId = null;
+    }
+    document.getElementById('closeNgoModal').addEventListener('click', closeNgoModal);
+    ngoModal.addEventListener('click', (e)=>{ if(e.target===ngoModal) closeNgoModal(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && ngoModal.getAttribute('aria-hidden')==='false') closeNgoModal(); });
+
+    document.getElementById('approveNgoBtn').addEventListener('click', ()=>{
+      if(!currentNgoId) return;
+      const idx = pendingNGOs.findIndex(n=>n.id===currentNgoId);
+      const name = pendingNGOs[idx]?.name || 'NGO';
+      if(idx>-1){ pendingNGOs.splice(idx,1); }
+      renderApprovals();
+      closeNgoModal();
+      toast(`Approved ${name}`);
+    });
+    document.getElementById('rejectNgoBtn').addEventListener('click', ()=>{
+      if(!currentNgoId) return;
+      const idx = pendingNGOs.findIndex(n=>n.id===currentNgoId);
+      const name = pendingNGOs[idx]?.name || 'NGO';
+      if(idx>-1){ pendingNGOs.splice(idx,1); }
+      renderApprovals();
+      closeNgoModal();
+      toast(`Rejected ${name}`);
+    });
+
+    document.addEventListener('click', (e)=>{
+      const viewId = e.target.getAttribute('data-ngoview');
+      if(viewId){ openNgoModal(viewId); }
+
+      const openList = e.target.closest('[data-open-list]');
+      if(openList){
+        openDirectory(openList.getAttribute('data-open-list'));
+        e.preventDefault();
+      }
+
+      const goProfile = e.target.getAttribute('data-view-profile');
+      if(goProfile){
+        const slug = goProfile;
+        location.hash = `dashboard-${slug}`;
+        toast('Opening person dashboard...');
+      }
+    });
+
+    document.getElementById('approveAllBtn').addEventListener('click', ()=>{
+      const count = pendingNGOs.length;
+      pendingNGOs.length = 0;
+      renderApprovals();
+      toast(`Approved ${count} NGO${count!==1?'s':''}`);
+    });
+
+    // Reworked Global Inventory (stacked bar + totals)
+    function renderGlobalInventory(){
+      const total = inventoryByType.reduce((a,b)=>a+b.value,0) || 1;
+      const get = k => inventoryByType.find(i=>i.key===k).value;
+      const pct = {
+        food:    Math.max(2, Math.round(get('food')    / total * 100)),
+        funds:   Math.max(2, Math.round(get('funds')   / total * 100)),
+        toys:    Math.max(2, Math.round(get('toys')    / total * 100)),
+        clothes: Math.max(2, Math.round(get('clothes') / total * 100)),
+      };
+      const sumPct = pct.food + pct.funds + pct.toys + pct.clothes;
+      pct.clothes += (100 - sumPct); // adjust to total 100%
+
+      const stack = document.getElementById('giStack');
+      stack.style.setProperty('--p-food', pct.food + '%');
+      stack.style.setProperty('--p-funds', pct.funds + '%');
+      stack.style.setProperty('--p-toys', pct.toys + '%');
+      stack.style.setProperty('--p-clothes', pct.clothes + '%');
+
+      const legend = document.getElementById('giLegend');
+      legend.innerHTML = '';
+      const order = ['food','funds','toys','clothes'];
+      const labels = {food:'Food', funds:'Funds', toys:'Toys', clothes:'Clothes'};
+      const values = { food:get('food'), funds:get('funds'), toys:get('toys'), clothes:get('clothes') };
+      const dots = {food:'dot-food', funds:'dot-funds', toys:'dot-toys', clothes:'dot-clothes'};
+
+      order.forEach(k=>{
+        const li = document.createElement('div');
+        li.className = 'gi-item';
+        li.setAttribute('role','listitem');
+        li.innerHTML = `
+          <div class="gi-left">
+            <span class="dot ${dots[k]}"></span>
+            <span class="gi-name">${labels[k]}</span>
+          </div>
+          <div class="gi-val">
+            ${k==='food' ? values[k].toLocaleString() + ' kg' :
+              k==='funds' ? '₹' + values[k].toLocaleString() :
+              values[k].toLocaleString() + ' pcs'}
+          </div>
+        `;
+        li.title = `${labels[k]} • ${pct[k]}%`;
+        legend.appendChild(li);
+      });
+    }
+
+    // NGO Inventory (comparative bars)
+    function renderNGOInventory(){
+      const container = document.getElementById('ngoInventory');
+      container.innerHTML = '';
+      const maxFood = Math.max(...inventoryByNGO.map(n=>n.items.foodKg));
+      const maxFunds = Math.max(...inventoryByNGO.map(n=>n.items.fundsInr));
+      const maxToys = Math.max(...inventoryByNGO.map(n=>n.items.toys));
+      const maxClothes = Math.max(...inventoryByNGO.map(n=>n.items.clothes));
+
+      inventoryByNGO.forEach(ngo=>{
+        const row = document.createElement('div');
+        row.className = 'ngo-item';
+        row.innerHTML = `
+          <div><strong>${ngo.name}</strong></div>
+          <div class="item-bars">
+            <div class="item-row">
+              <div class="label">Food</div>
+              <div class="item-track"><div class="item-fill bar-food" style="width:${Math.round((ngo.items.foodKg/maxFood)*100)}%"></div></div>
+              <div class="value">${ngo.items.foodKg} kg</div>
+            </div>
+            <div class="item-row">
+              <div class="label">Funds</div>
+              <div class="item-track"><div class="item-fill bar-funds" style="width:${Math.round((ngo.items.fundsInr/maxFunds)*100)}%"></div></div>
+              <div class="value">₹${ngo.items.fundsInr.toLocaleString()}</div>
+            </div>
+            <div class="item-row">
+              <div class="label">Toys</div>
+              <div class="item-track"><div class="item-fill bar-toys" style="width:${Math.round((ngo.items.toys/maxToys)*100)}%"></div></div>
+              <div class="value">${ngo.items.toys} pcs</div>
+            </div>
+            <div class="item-row">
+              <div class="label">Clothes</div>
+              <div class="item-track"><div class="item-fill bar-clothes" style="width:${Math.round((ngo.items.clothes/maxClothes)*100)}%"></div></div>
+              <div class="value">${ngo.items.clothes} pcs</div>
+            </div>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    // Directory (drawer)
+    const drawer = document.getElementById('drawer');
+    const listContainer = document.getElementById('listContainer');
+    const searchInput = document.getElementById('searchInput');
+    const drawerTitle = document.getElementById('drawerTitle');
+    const drawerSubtitle = document.getElementById('drawerSubtitle');
+
+    function openDirectory(kind){
+      drawer.setAttribute('aria-hidden','false');
+      drawer.dataset.kind = kind;
+      document.body.style.overflow = 'hidden';
+      populateDirectory(kind, '');
+      if(kind==='donors'){ drawerTitle.textContent='Donors'; drawerSubtitle.textContent='All donors and their activity'; }
+      if(kind==='agents'){ drawerTitle.textContent='Pickup Agents'; drawerSubtitle.textContent='All pickup agents and performance'; }
+      if(kind==='ngos'){ drawerTitle.textContent='NGOs'; drawerSubtitle.textContent='Registered NGOs and centers'; }
+      if(kind==='volunteers'){ drawerTitle.textContent='Event Volunteers'; drawerSubtitle.textContent='Volunteers and event history'; }
+      searchInput.value='';
+      searchInput.focus();
+      location.hash = `list-${kind}`;
+    }
+
+    function closeDirectory(){
+      drawer.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      if(location.hash.startsWith('#list-')){
+        history.replaceState(null, '', ' ');
+      }
+    }
+
+    document.getElementById('closeDrawerBtn').addEventListener('click', closeDirectory);
+    drawer.addEventListener('click', (e)=>{ if(e.target===drawer) closeDirectory(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && drawer.getAttribute('aria-hidden')==='false') closeDirectory(); });
+
+    function populateDirectory(kind, query){
+      const items = (directory[kind] || []);
+      const q = (query||'').trim().toLowerCase();
+      listContainer.innerHTML = '';
+      const filtered = q ? items.filter(i=> (i.name+ ' ' + i.info).toLowerCase().includes(q)) : items;
+      filtered.forEach(i=>{
+        const el = document.createElement('div');
+        el.className = 'list-item';
+        el.setAttribute('role','listitem');
+        el.innerHTML = `
+          <div style="font-weight:800">${i.name}</div>
+          <div class="meta">${i.info}</div>
+          <div class="row">
+            <button class="btn small" data-view-profile="${i.slug}">View</button>
+          </div>
+        `;
+        listContainer.appendChild(el);
+      });
+      if(filtered.length===0){
+        const empty = document.createElement('div');
+        empty.className='list-item';
+        empty.innerHTML = `<div style="font-weight:800">No results</div><div class="meta">Try a different search term.</div>`;
+        listContainer.appendChild(empty);
+      }
+    }
+
+    searchInput.addEventListener('input', (e)=>{
+      const kind = drawer.dataset.kind || 'donors';
+      populateDirectory(kind, e.target.value);
+    });
+
+    // Top controls
+    document.getElementById('refreshBtn').addEventListener('click', ()=>{ toast('Data refreshed'); });
+
+    // Init
+    function init(){
+      renderTransactions();
+      renderApprovals();
+      renderGlobalInventory();
+      renderNGOInventory();
+    }
+    init();
+
+    // Open drawer on hash
+    window.addEventListener('hashchange', ()=>{
+      const m = location.hash.match(/^#list\-(donors|agents|ngos|volunteers)$/);
+      if(m){ openDirectory(m[1]); }
+    });
+    if(location.hash.match(/^#list\-/)){
+      const k = location.hash.replace('#list-','');
+      openDirectory(k);
+    }
+  </script>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97f63c69477d1e0a',t:'MTc1NzkxOTUxMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
