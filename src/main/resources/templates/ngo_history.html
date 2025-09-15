@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NGO Dashboard — Donations, Volunteers & Events</title>
+  <link rel="stylesheet" href="/css/ngo_history.css">
+</head>
+
+<body class="grain">
+  <header class="page-head">
+    <div class="head-inner">
+      <a class="brand" href="#">
+        <div class="brand-mark">🏥</div>
+        <div class="brand-title">NGO History</div>
+      </a>
+      <span class="note">Donations • Volunteers • Events</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="container">
+      <section class="card">
+        <div class="card-head">
+          <h1 class="title">Overview</h1>
+          <p class="subtitle">Switch between donation history, event volunteers, and events.</p>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" data-tab="donations">Donations</button>
+          <button class="tab" data-tab="volunteers">Volunteers</button>
+          <button class="tab" data-tab="events">Events</button>
+        </div>
+
+        <div class="card-body">
+          <!-- Donations Section -->
+          <section id="section-donations" class="section active">
+            <div class="toolbar split-2">
+              <div class="filters quad">
+                <div class="field">
+                  <label for="dType">Item type</label>
+                  <select id="dType">
+                    <option value="">All</option>
+                    <option value="Toys">Toys</option>
+                    <option value="Fund">Fund</option>
+                    <option value="Clothes">Clothes</option>
+                    <option value="Food">Food</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="dUnit">Unit</label>
+                  <select id="dUnit">
+                    <option value="">All</option>
+                    <option value="pieces">Pieces</option>
+                    <option value="kg">Kg</option>
+                    <option value="rs">Rs</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="dDonor">Donor</label>
+                  <select id="dDonor">
+                    <option value="">All</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>Date range</label>
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                    <input type="date" id="dFrom"/>
+                    <input type="date" id="dTo"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Donor</th>
+                    <th>Item Type</th>
+                    <th>Quantity</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody id="dTbody"></tbody>
+              </table>
+              <div id="dEmpty" class="empty" style="display:none;">No donation records match your filters.</div>
+            </div>
+          </section>
+
+          <!-- Volunteers Section -->
+          <section id="section-volunteers" class="section">
+            <div class="toolbar single">
+              <div class="filters quad">
+                <div class="field">
+                  <label for="vEvent">Event</label>
+                  <select id="vEvent">
+                    <option value="">All</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>Date range</label>
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                    <input type="date" id="vFrom"/>
+                    <input type="date" id="vTo"/>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="vName">Volunteer name</label>
+                  <input type="text" id="vName" placeholder="Type to filter by name"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Event</th>
+                    <th>Volunteer</th>
+                    <th>Contact</th>
+                  </tr>
+                </thead>
+                <tbody id="vTbody"></tbody>
+              </table>
+              <div id="vEmpty" class="empty" style="display:none;">No volunteer records match your filters.</div>
+            </div>
+          </section>
+
+          <!-- Events Section -->
+          <section id="section-events" class="section">
+            <div class="toolbar single">
+              <div class="filters penta">
+                <div class="field">
+                  <label for="eStatus">Status</label>
+                  <select id="eStatus">
+                    <option value="">All</option>
+                    <option value="upcoming">Upcoming</option>
+                    <option value="ongoing">Ongoing</option>
+                    <option value="completed">Completed</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="eCity">City</label>
+                  <select id="eCity">
+                    <option value="">All</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label>Date range</label>
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                    <input type="date" id="eFrom"/>
+                    <input type="date" id="eTo"/>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="eName">Event name</label>
+                  <input type="text" id="eName" placeholder="Search by name"/>
+                </div>
+                <div class="field">
+                  <label for="eLocation">Location contains</label>
+                  <input type="text" id="eLocation" placeholder="Hall, park, center..."/>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Event</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Description</th>
+                    <th>Location</th>
+                    <th>City</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="eTbody"></tbody>
+              </table>
+              <div id="eEmpty" class="empty" style="display:none;">No events match your filters.</div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // Demo data: Donations
+    const donations = [
+      { id:1, date:'2025-09-04', donor:'Anita Sharma', type:'Clothes', qty:20, unit:'pieces', description:'Winter jackets for teens' },
+      { id:2, date:'2025-09-01', donor:'GreenLeaf Pvt Ltd', type:'Fund', qty:10000, unit:'rs', description:'For school supplies drive' },
+      { id:3, date:'2025-08-26', donor:'Rahul Verma', type:'Food', qty:25, unit:'kg', description:'Rice and lentils' },
+      { id:4, date:'2025-08-20', donor:'Bright Future Club', type:'Toys', qty:15, unit:'pieces', description:'Board games and puzzles' },
+      { id:5, date:'2025-08-12', donor:'Anita Sharma', type:'Fund', qty:2500, unit:'rs', description:'' },
+      { id:6, date:'2025-08-05', donor:'City Hearts', type:'Clothes', qty:30, unit:'pieces', description:'Kids’ uniforms' },
+    ];
+
+    // Demo data: Volunteers — now with contact info instead of hours
+    const volunteers = [
+      { id:1, date:'2025-09-03', event:'Back-to-School Drive', name:'Vikram Singh', phone:'+91 98765 43210', email:'vikram@example.com' },
+      { id:2, date:'2025-09-03', event:'Back-to-School Drive', name:'Meera Iyer', phone:'+91 91234 56780', email:'meera@example.com' },
+      { id:3, date:'2025-08-22', event:'Community Health Camp', name:'Dr. Rakesh', phone:'+91 90000 11111', email:'rakesh@example.com' },
+      { id:4, date:'2025-08-22', event:'Community Health Camp', name:'Asha Patel', phone:'+91 99887 66554', email:'asha@example.com' },
+      { id:5, date:'2025-08-10', event:'Fundraiser Gala', name:'Rohan Gupta', phone:'+91 90909 80808', email:'rohan@example.com' },
+      { id:6, date:'2025-08-10', event:'Fundraiser Gala', name:'Priya Nair', phone:'+91 95555 44433', email:'priya@example.com' },
+    ];
+
+    // Demo data: Events
+    const events = [
+      { id:1, name:'Back-to-School Drive', start:'2025-09-01', end:'2025-09-05', description:'Distributing school kits to underprivileged kids.', location:'Community Hall A', city:'Mumbai', status:'ongoing' },
+      { id:2, name:'Community Health Camp', start:'2025-08-22', end:'2025-08-22', description:'Free check-ups and basic medicines.', location:'Ward 11 Clinic', city:'Pune', status:'completed' },
+      { id:3, name:'Fundraiser Gala', start:'2025-08-10', end:'2025-08-10', description:'Annual gala to raise funds.', location:'City Convention Center', city:'Mumbai', status:'completed' },
+      { id:4, name:'Winter Warmth Drive', start:'2025-11-15', end:'2025-12-01', description:'Collecting and distributing warm clothes.', location:'Central Park Pavilion', city:'Delhi', status:'upcoming' },
+    ];
+
+    // Populate selects
+    const dDonorSel = document.getElementById('dDonor');
+    Array.from(new Set(donations.map(r => r.donor))).sort().forEach(n => {
+      const opt = document.createElement('option'); opt.value=n; opt.textContent=n; dDonorSel.appendChild(opt);
+    });
+    const vEventSel = document.getElementById('vEvent');
+    Array.from(new Set(volunteers.map(r => r.event))).sort().forEach(e => {
+      const opt = document.createElement('option'); opt.value=e; opt.textContent=e; vEventSel.appendChild(opt);
+    });
+    const eCitySel = document.getElementById('eCity');
+    Array.from(new Set(events.map(ev => ev.city))).sort().forEach(c => {
+      const opt = document.createElement('option'); opt.value=c; opt.textContent=c; eCitySel.appendChild(opt);
+    });
+
+    // Tabs
+    const tabs = Array.from(document.querySelectorAll('.tab'));
+    const sections = {
+      donations: document.getElementById('section-donations'),
+      volunteers: document.getElementById('section-volunteers'),
+      events: document.getElementById('section-events')
+    };
+    tabs.forEach(t=>{
+      t.addEventListener('click', ()=>{
+        tabs.forEach(x=>x.classList.remove('active'));
+        t.classList.add('active');
+        const tab = t.dataset.tab;
+        Object.entries(sections).forEach(([k,el])=>{
+          el.classList.toggle('active', k===tab);
+        });
+      });
+    });
+
+    // Utilities
+    function toDateLabel(iso){
+      const d = new Date(iso + 'T00:00:00');
+      return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'2-digit' });
+    }
+    function qtyLabel(qty, unit){
+      const u = unit === 'kg' ? 'kg' : 'pcs';
+      if (unit === 'rs') return `₹${Number(qty).toLocaleString()}`;
+      return `${qty} ${u}`;
+    }
+    function escapeHTML(s){ return (s || '').replace(/[&<>"']/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+    // Donations render
+    const dState = { type:'', unit:'', donor:'', from:'', to:'' };
+    const dEls = {
+      type: document.getElementById('dType'),
+      unit: document.getElementById('dUnit'),
+      donor: document.getElementById('dDonor'),
+      from: document.getElementById('dFrom'),
+      to: document.getElementById('dTo'),
+      tbody: document.getElementById('dTbody'),
+      empty: document.getElementById('dEmpty')
+    };
+    function renderDonations(){
+      const f = dState;
+      const filtered = donations.filter(r=>{
+        if (f.type && r.type!==f.type) return false;
+        if (f.unit && r.unit!==f.unit) return false;
+        if (f.donor && r.donor!==f.donor) return false;
+        if (f.from && r.date < f.from) return false;
+        if (f.to && r.date > f.to) return false;
+        return true;
+      });
+      dEls.tbody.innerHTML = '';
+      filtered.forEach(r=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${toDateLabel(r.date)}</td>
+          <td>${escapeHTML(r.donor)}</td>
+          <td><span class="pill">${escapeHTML(r.type)}</span></td>
+          <td><span class="pill">${qtyLabel(r.qty, r.unit)}</span></td>
+          <td>${(r.description||'').trim() ? `<span class="desc">${escapeHTML(r.description)}</span>` : `<span class="desc" style="opacity:.7">No description</span>`}</td>
+        `;
+        dEls.tbody.appendChild(tr);
+      });
+      dEls.empty.style.display = filtered.length ? 'none':'block';
+    }
+    ['type','unit','donor','from','to'].forEach(k=>{
+      dEls[k].addEventListener('change', e => { dState[k] = e.target.value; renderDonations(); });
+    });
+
+    // Volunteers render — showing contact info
+    const vState = { event:'', from:'', to:'', name:'' };
+    const vEls = {
+      event: document.getElementById('vEvent'),
+      from: document.getElementById('vFrom'),
+      to: document.getElementById('vTo'),
+      name: document.getElementById('vName'),
+      tbody: document.getElementById('vTbody'),
+      empty: document.getElementById('vEmpty')
+    };
+    function renderVolunteers(){
+      const f = vState;
+      const filtered = volunteers.filter(r=>{
+        if (f.event && r.event!==f.event) return false;
+        if (f.from && r.date < f.from) return false;
+        if (f.to && r.date > f.to) return false;
+        if (f.name && !r.name.toLowerCase().includes(f.name.toLowerCase())) return false;
+        return true;
+      });
+      vEls.tbody.innerHTML = '';
+      filtered.forEach(r=>{
+        const tr = document.createElement('tr');
+        const phone = escapeHTML(r.phone || '—');
+        const email = escapeHTML(r.email || '—');
+        tr.innerHTML = `
+          <td>${toDateLabel(r.date)}</td>
+          <td>${escapeHTML(r.event)}</td>
+          <td>${escapeHTML(r.name)}</td>
+          <td>
+            <div class="desc" style="display:inline-block">
+              📞 ${phone}<br/>
+              ✉️ ${email}
+            </div>
+          </td>
+        `;
+        vEls.tbody.appendChild(tr);
+      });
+      vEls.empty.style.display = filtered.length ? 'none':'block';
+    }
+    ['event','from','to'].forEach(k=>{
+      vEls[k].addEventListener('change', e => { vState[k] = e.target.value; renderVolunteers(); });
+    });
+    vEls.name.addEventListener('input', e => { vState.name = e.target.value; renderVolunteers(); });
+
+    // Events render
+    const eState = { status:'', city:'', from:'', to:'', name:'', location:'' };
+    const eEls = {
+      status: document.getElementById('eStatus'),
+      city: document.getElementById('eCity'),
+      from: document.getElementById('eFrom'),
+      to: document.getElementById('eTo'),
+      name: document.getElementById('eName'),
+      location: document.getElementById('eLocation'),
+      tbody: document.getElementById('eTbody'),
+      empty: document.getElementById('eEmpty')
+    };
+    function renderEvents(){
+      const f = eState;
+      const filtered = events.filter(ev=>{
+        if (f.status && ev.status!==f.status) return false;
+        if (f.city && ev.city!==f.city) return false;
+        if (f.from && ev.end < f.from) return false;
+        if (f.to && ev.start > f.to) return false;
+        if (f.name && !ev.name.toLowerCase().includes(f.name.toLowerCase())) return false;
+        if (f.location && !ev.location.toLowerCase().includes(f.location.toLowerCase())) return false;
+        return true;
+      });
+      eEls.tbody.innerHTML = '';
+      filtered.forEach(ev=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${escapeHTML(ev.name)}</td>
+          <td>${toDateLabel(ev.start)}</td>
+          <td>${toDateLabel(ev.end)}</td>
+          <td><span class="desc">${escapeHTML(ev.description)}</span></td>
+          <td>${escapeHTML(ev.location)}</td>
+          <td>${escapeHTML(ev.city)}</td>
+          <td><span class="pill ${ev.status}">${ev.status.charAt(0).toUpperCase()+ev.status.slice(1)}</span></td>
+        `;
+        eEls.tbody.appendChild(tr);
+      });
+      eEls.empty.style.display = filtered.length ? 'none':'block';
+    }
+    ['status','city','from','to'].forEach(k=>{
+      eEls[k].addEventListener('change', e => { eState[k] = e.target.value; renderEvents(); });
+    });
+    eEls.name.addEventListener('input', e => { eState.name = e.target.value; renderEvents(); });
+    eEls.location.addEventListener('input', e => { eState.location = e.target.value; renderEvents(); });
+
+    // Initial renders
+    renderDonations();
+    renderVolunteers();
+    renderEvents();
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97f5c26f412b598d',t:'MTc1NzkxNDUxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Donor History</title>
+  <link rel="stylesheet" href="css/donor_history.css">
+</head>
+<body class="grain">
+  <header class="page-head">
+    <div class="head-inner">
+      <a class="brand" href="#">
+        <div class="brand-mark">🎁</div>
+        <div class="brand-title">Donor History</div>
+      </a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="container">
+      <section class="card">
+        <div class="card-head">
+          <h1 class="title">Your donations</h1>
+          <p class="subtitle">Browse and filter your donation history.</p>
+        </div>
+        <div class="card-body">
+          <!-- Toolbar -->
+          <div class="toolbar">
+            <div class="filters">
+              <div class="field">
+                <label for="filterType">Item type</label>
+                <select id="filterType">
+                  <option value="">All</option>
+                  <option value="Toys">Toys</option>
+                  <option value="Fund">Fund</option>
+                  <option value="Clothes">Clothes</option>
+                  <option value="Food">Food</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="filterUnit">Unit</label>
+                <select id="filterUnit">
+                  <option value="">All</option>
+                  <option value="pieces">Pieces</option>
+                  <option value="kg">Kg</option>
+                  <option value="rs">Rs</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="filterNGO">NGO</label>
+                <select id="filterNGO">
+                  <option value="">All</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Date range</label>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                  <input type="date" id="dateFrom" />
+                  <input type="date" id="dateTo" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="table-wrap" id="tableWrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>NGO</th>
+                  <th>Item Type</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody id="tbody">
+                <!-- Rows injected dynamically -->
+              </tbody>
+            </table>
+            <div id="emptyState" class="empty" style="display:none;">No donations match your filters.</div>
+          </div>
+
+          <div class="footer-note">Tip: Use the filters to narrow down results.</div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // Sample data
+    const donations = [
+      { id:1, date:'2025-09-02', ngo:'Hope Foundation', type:'Toys', qty:12, unit:'pieces' },
+      { id:2, date:'2025-08-21', ngo:'FoodCare Trust', type:'Food', qty:18, unit:'kg' },
+      { id:3, date:'2025-08-01', ngo:'WarmWear NGO', type:'Clothes', qty:25, unit:'pieces' },
+      { id:4, date:'2025-07-18', ngo:'Hope Foundation', type:'Fund', qty:1500, unit:'rs' },
+      { id:5, date:'2025-07-09', ngo:'BrightKids', type:'Toys', qty:5, unit:'pieces' },
+      { id:6, date:'2025-06-29', ngo:'FoodCare Trust', type:'Fund', qty:700, unit:'rs' },
+    ];
+
+    // Filters state only
+    const state = { filters: { type:'', unit:'', ngo:'', from:'', to:'' } };
+
+    // Elements
+    const tbody = document.getElementById('tbody');
+    const emptyState = document.getElementById('emptyState');
+    const filterType = document.getElementById('filterType');
+    const filterUnit = document.getElementById('filterUnit');
+    const filterNGO  = document.getElementById('filterNGO');
+    const dateFrom   = document.getElementById('dateFrom');
+    const dateTo     = document.getElementById('dateTo');
+
+    // Populate NGO filter options from data
+    const ngoSet = Array.from(new Set(donations.map(d => d.ngo))).sort();
+    ngoSet.forEach(n => {
+      const opt = document.createElement('option');
+      opt.value = n; opt.textContent = n;
+      filterNGO.appendChild(opt);
+    });
+
+    function formatDate(iso){
+      const d = new Date(iso + 'T00:00:00');
+      return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'2-digit' });
+    }
+    function formatQty(qty, unit){
+      const u = unit === 'kg' ? 'kg' : unit === 'pieces' ? 'pcs' : '₹';
+      if (unit === 'rs') return `${u}${Number(qty).toLocaleString()}`;
+      return `${qty} ${u}`;
+    }
+
+    // Render (no sorting; original order)
+    function render() {
+      const filtered = donations.filter(d => {
+        if (state.filters.type && d.type !== state.filters.type) return false;
+        if (state.filters.unit && d.unit !== state.filters.unit) return false;
+        if (state.filters.ngo && d.ngo !== state.filters.ngo) return false;
+        if (state.filters.from && d.date < state.filters.from) return false;
+        if (state.filters.to && d.date > state.filters.to) return false;
+        return true;
+      });
+
+      tbody.innerHTML = '';
+      filtered.forEach(d => {
+        const tr = document.createElement('tr');
+        tr.setAttribute('data-id', d.id);
+
+        const tdDate = document.createElement('td');
+        tdDate.textContent = formatDate(d.date);
+
+        const tdNGO = document.createElement('td');
+        tdNGO.textContent = d.ngo;
+
+        const tdType = document.createElement('td');
+        const pill = document.createElement('span');
+        pill.className = 'pill ' + d.type.toLowerCase();
+        pill.textContent = d.type;
+        tdType.appendChild(pill);
+
+        const tdQty = document.createElement('td');
+        tdQty.innerHTML = `<span class="pill">${formatQty(d.qty, d.unit)}</span>`;
+
+        tr.appendChild(tdDate);
+        tr.appendChild(tdNGO);
+        tr.appendChild(tdType);
+        tr.appendChild(tdQty);
+
+        tbody.appendChild(tr);
+      });
+
+      emptyState.style.display = filtered.length ? 'none' : 'block';
+    }
+
+    // Filters
+    function bindFilters(){
+      filterType.addEventListener('change', e => { state.filters.type = e.target.value; render(); });
+      filterUnit.addEventListener('change', e => { state.filters.unit = e.target.value; render(); });
+      filterNGO.addEventListener('change', e => { state.filters.ngo = e.target.value; render(); });
+      dateFrom.addEventListener('change', e => { state.filters.from = e.target.value; render(); });
+      dateTo.addEventListener('change', e => { state.filters.to = e.target.value; render(); });
+      // Reset button removed along with CSV? If you want reset back, say the word.
+    }
+
+    // Init
+    bindFilters();
+    render();
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97f597f5c28d14c8',t:'MTc1NzkxMjc3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

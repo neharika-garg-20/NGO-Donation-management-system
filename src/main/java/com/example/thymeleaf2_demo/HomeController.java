@@ -50,4 +50,15 @@ public class HomeController {
         model.addAttribute("pageTitle" , "NGO DASHBOARD");
         return "ngo_dashboard";
     }
+
+    @GetMapping("/donor_history")
+    public String donor_history(Model model) {
+    model.addAttribute("pageTitle", "Donor History");
+    return "donor_history"; 
+    }
+    @GetMapping("/ngo_history")
+    public String ngo_history(Model model) {
+    model.addAttribute("pageTitle", "NGO History");
+    return "ngo_history"; 
+    }
 }
