@@ -15,7 +15,7 @@
         body {
             min-height: 100vh;
             background: linear-gradient(135deg, var(--cream) 0%, var(--light-brown) 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
             padding: 20px;
         }
 
@@ -148,6 +148,152 @@
             background: var(--medium-brown);
             color: white;
             border-style: solid;
+        }
+
+        .email-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .email-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 10px 14px;
+            border: 2px solid var(--light-brown);
+            border-radius: 8px;
+            background: var(--cream);
+            color: var(--dark-brown);
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: var(--medium-brown);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(218, 160, 109, 0.1);
+        }
+
+        .email-input[readonly] {
+            background: var(--light-brown);
+            cursor: default;
+        }
+
+        .address-input {
+            min-height: 60px;
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.4;
+        }
+
+        .contact-field {
+            margin-bottom: 16px;
+        }
+
+        .contact-field h4 {
+            color: var(--dark-brown);
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .contact-input-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .contact-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 10px 14px;
+            border: 2px solid var(--light-brown);
+            border-radius: 8px;
+            background: var(--light-brown);
+            color: var(--dark-brown);
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: default;
+        }
+
+        .contact-input:not([readonly]) {
+            background: var(--cream);
+            cursor: text;
+            border-color: var(--medium-brown);
+        }
+
+        .contact-input:focus {
+            outline: none;
+            border-color: var(--dark-brown);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(166, 123, 91, 0.1);
+        }
+
+        .contact-textarea {
+            min-height: 60px;
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.4;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+
+    /* 👇 Hide/show class */
+        .hidden {
+            display: none !important;
+        }
+
+        /* 👇 Buttons */
+        .edit-email-btn, .save-email-btn, .cancel-email-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .edit-email-btn {
+            background: var(--medium-brown);
+            color: white;
+        }
+
+        .edit-email-btn:hover {
+            background: var(--dark-brown);
+            transform: translateY(-1px);
+        }
+
+        .save-email-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .save-email-btn:hover {
+            background: linear-gradient(135deg, #45a049, #3d8b40);
+            transform: translateY(-1px);
+        }
+
+        .cancel-email-btn {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+        }
+
+        .cancel-email-btn:hover {
+            background: linear-gradient(135deg, #d32f2f, #c62828);
+            transform: translateY(-1px);
         }
 
         .edit-btn {

@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NGO Dashboard - Food Donation Platform</title>
-    <link rel="stylesheet" href="../static/css/ngo_dashboard.css">
+    <link rel="stylesheet" href="/css/ngo_dashboard.css">
 </head>
+
 <body>
     <div class="dashboard-container">
         <!-- Header -->
@@ -24,6 +25,36 @@
                 
                 <div class="ngo-name-fixed">
                     Hope Foundation
+                </div>
+                
+                <div style="margin-bottom: 16px;">
+                    <h4 style="color: var(--dark-brown); margin-bottom: 8px; font-size: 16px;">Organization Email:</h4>
+                    <div class="email-container">
+                        <input type="email" id="ngoEmail" class="email-input" value="contact@hopefoundation.org" readonly>
+                        <button class="edit-email-btn" onclick="toggleEmailEdit()">✏️ Edit</button>
+                        <button class="save-email-btn" onclick="saveEmail()" style="display: none;">💾 Save</button>
+                        <button class="cancel-email-btn" onclick="cancelEmailEdit()" style="display: none;">❌ Cancel</button>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 16px;">
+                    <h4 style="color: var(--dark-brown); margin-bottom: 8px; font-size: 16px;">Contact Number:</h4>
+                    <div class="email-container">
+                        <input type="tel" id="ngoPhone" class="email-input" value="+91 98765 43210" readonly>
+                        <button class="edit-email-btn" onclick="togglePhoneEdit()">✏️ Edit</button>
+                        <button class="save-email-btn" onclick="savePhone()" style="display: none;">💾 Save</button>
+                        <button class="cancel-email-btn" onclick="cancelPhoneEdit()" style="display: none;">❌ Cancel</button>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 16px;">
+                    <h4 style="color: var(--dark-brown); margin-bottom: 8px; font-size: 16px;">Address:</h4>
+                    <div class="email-container">
+                        <textarea id="ngoAddress" class="email-input address-input" readonly>123 Charity Street, Helping Hands Colony, Mumbai, Maharashtra 400001</textarea>
+                        <button class="edit-email-btn" onclick="toggleAddressEdit()">✏️ Edit</button>
+                        <button class="save-email-btn" onclick="saveAddress()" style="display: none;">💾 Save</button>
+                        <button class="cancel-email-btn" onclick="cancelAddressEdit()" style="display: none;">❌ Cancel</button>
+                    </div>
                 </div>
                 
                 <h4 style="color: var(--dark-brown); margin-bottom: 12px;">Currently Accepting:</h4>
@@ -208,21 +239,21 @@
                         <span>🍽️</span>
                         <span>Food</span>
                     </div>
-                    <span class="option-cross">×</span>
+                    <span class="option-cross">x</span>
                 </div>
                 <div class="popup-option" data-item="clothes" onclick="togglePopupOption(this)">
                     <div class="option-info">
                         <span>👕</span>
                         <span>Clothes</span>
                     </div>
-                    <span class="option-cross">×</span>
+                    <span class="option-cross">x</span>
                 </div>
                 <div class="popup-option" data-item="toys" onclick="togglePopupOption(this)">
                     <div class="option-info">
                         <span>🧸</span>
                         <span>Toys</span>
                     </div>
-                    <span class="option-cross">×</span>
+                    <span class="option-cross">x</span>
                 </div>
             </div>
             <div class="popup-buttons">
@@ -458,6 +489,238 @@
 
         // Add new activity every 45 seconds
         setInterval(addNewActivity, 45000);
+
+        // Contact information editing functions
+        let originalEmail = '';
+        let originalPhone = '';
+        let originalAddress = '';
+
+        function toggleEmailEdit() {
+            const emailInput = document.getElementById('ngoEmail');
+            const editBtns = document.querySelectorAll('.edit-email-btn');
+            const saveBtns = document.querySelectorAll('.save-email-btn');
+            const cancelBtns = document.querySelectorAll('.cancel-email-btn');
+            
+            // Store original email for cancel functionality
+            originalEmail = emailInput.value;
+            
+            // Enable editing
+            emailInput.removeAttribute('readonly');
+            emailInput.focus();
+            emailInput.select();
+            
+            // Toggle button visibility for email section
+            editBtns[0].style.display = 'none';
+            saveBtns[0].style.display = 'flex';
+            cancelBtns[0].style.display = 'flex';
+        }
+
+        function saveEmail() {
+            const emailInput = document.getElementById('ngoEmail');
+            const editBtns = document.querySelectorAll('.edit-email-btn');
+            const saveBtns = document.querySelectorAll('.save-email-btn');
+            const cancelBtns = document.querySelectorAll('.cancel-email-btn');
+            
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                alert('Please enter a valid email address.');
+                emailInput.focus();
+                return;
+            }
+            
+            // Save the email (in a real app, this would send to server)
+            alert(`Email updated successfully!\nNew email: ${emailInput.value}`);
+            
+            // Disable editing
+            emailInput.setAttribute('readonly', true);
+            
+            // Toggle button visibility for email section
+            editBtns[0].style.display = 'flex';
+            saveBtns[0].style.display = 'none';
+            cancelBtns[0].style.display = 'none';
+        }
+
+        function cancelEmailEdit() {
+            const emailInput = document.getElementById('ngoEmail');
+            const editBtns = document.querySelectorAll('.edit-email-btn');
+            const saveBtns = document.querySelectorAll('.save-email-btn');
+            const cancelBtns = document.querySelectorAll('.cancel-email-btn');
+            
+            // Restore original email
+            emailInput.value = originalEmail;
+            
+            // Disable editing
+            emailInput.setAttribute('readonly', true);
+            
+            // Toggle button visibility for email section
+            editBtns[0].style.display = 'flex';
+            saveBtns[0].style.display = 'none';
+            cancelBtns[0].style.display = 'none';
+        }
+
+        function togglePhoneEdit() {
+            const phoneInput = document.getElementById('ngoPhone');
+            const editBtns = document.querySelectorAll('.edit-email-btn');
+            const saveBtns = document.querySelectorAll('.save-email-btn');
+            const cancelBtns = document.querySelectorAll('.cancel-email-btn');
+            
+            // Store original phone for cancel functionality
+            originalPhone = phoneInput.value;
+            
+            // Enable editing
+            phoneInput.removeAttribute('readonly');
+            phoneInput.focus();
+            phoneInput.select();
+            
+            // Toggle button visibility for phone section
+            editBtns[1].style.display = 'none';
+            saveBtns[1].style.display = 'flex';
+            cancelBtns[1].style.display = 'flex';
+        }
+
+        function savePhone() {
+            const phoneInput = document.getElementById('ngoPhone');
+            const editBtns = document.querySelectorAll('.edit-email-btn');
+            const saveBtns = document.querySelectorAll('.save-email-btn');
+            const cancelBtns = document.querySelectorAll('.cancel-email-btn');
+            
+            // Basic phone validation
+            const phoneValue = phoneInput.value.trim();
+            if (phoneValue.length < 10) {
+                alert('Please enter a valid phone number.');
+                phoneInput.focus();
+                return;
+            }
+            
+            // Save the phone (in a real app, this would send to server)
+            alert(`Contact number updated successfully!\nNew number: ${phoneInput.value}`);
+            
+            // Disable editing
+            phoneInput.setAttribute('readonly', true);
+            
+            // Toggle button visibility for phone section
+            editBtns[1].style.display = 'flex';
+            saveBtns[1].style.display = 'none';
+            cancelBtns[1].style.display = 'none';
+        }
+
+        function cancelPhoneEdit() {
+            const phoneInput = document.getElementById('ngoPhone');
+            const editBtns = document.querySelectorAll('.edit-email-btn');
+            const saveBtns = document.querySelectorAll('.save-email-btn');
+            const cancelBtns = document.querySelectorAll('.cancel-email-btn');
+            
+            // Restore original phone
+            phoneInput.value = originalPhone;
+            
+            // Disable editing
+            phoneInput.setAttribute('readonly', true);
+            
+            // Toggle button visibility for phone section
+            editBtns[1].style.display = 'flex';
+            saveBtns[1].style.display = 'none';
+            cancelBtns[1].style.display = 'none';
+        }
+
+        function toggleAddressEdit() {
+            const addressInput = document.getElementById('ngoAddress');
+            const editBtns = document.querySelectorAll('.edit-email-btn');
+            const saveBtns = document.querySelectorAll('.save-email-btn');
+            const cancelBtns = document.querySelectorAll('.cancel-email-btn');
+            
+            // Store original address for cancel functionality
+            originalAddress = addressInput.value;
+            
+            // Enable editing
+            addressInput.removeAttribute('readonly');
+            addressInput.focus();
+            addressInput.select();
+            
+            // Toggle button visibility for address section
+            editBtns[2].style.display = 'none';
+            saveBtns[2].style.display = 'flex';
+            cancelBtns[2].style.display = 'flex';
+        }
+
+        function saveAddress() {
+            const addressInput = document.getElementById('ngoAddress');
+            const editBtns = document.querySelectorAll('.edit-email-btn');
+            const saveBtns = document.querySelectorAll('.save-email-btn');
+            const cancelBtns = document.querySelectorAll('.cancel-email-btn');
+            
+            // Basic address validation
+            const addressValue = addressInput.value.trim();
+            if (addressValue.length < 10) {
+                alert('Please enter a complete address.');
+                addressInput.focus();
+                return;
+            }
+            
+            // Save the address (in a real app, this would send to server)
+            alert(`Address updated successfully!\nNew address: ${addressInput.value}`);
+            
+            // Disable editing
+            addressInput.setAttribute('readonly', true);
+            
+            // Toggle button visibility for address section
+            editBtns[2].style.display = 'flex';
+            saveBtns[2].style.display = 'none';
+            cancelBtns[2].style.display = 'none';
+        }
+
+        function cancelAddressEdit() {
+            const addressInput = document.getElementById('ngoAddress');
+            const editBtns = document.querySelectorAll('.edit-email-btn');
+            const saveBtns = document.querySelectorAll('.save-email-btn');
+            const cancelBtns = document.querySelectorAll('.cancel-email-btn');
+            
+            // Restore original address
+            addressInput.value = originalAddress;
+            
+            // Disable editing
+            addressInput.setAttribute('readonly', true);
+            
+            // Toggle button visibility for address section
+            editBtns[2].style.display = 'flex';
+            saveBtns[2].style.display = 'none';
+            cancelBtns[2].style.display = 'none';
+        }
+
+        // Allow saving with Enter key and canceling with Escape key
+        document.getElementById('ngoEmail').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !this.hasAttribute('readonly')) {
+                saveEmail();
+            }
+        });
+
+        document.getElementById('ngoEmail').addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !this.hasAttribute('readonly')) {
+                cancelEmailEdit();
+            }
+        });
+
+        document.getElementById('ngoPhone').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !this.hasAttribute('readonly')) {
+                savePhone();
+            }
+        });
+
+        document.getElementById('ngoPhone').addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !this.hasAttribute('readonly')) {
+                cancelPhoneEdit();
+            }
+        });
+
+        document.getElementById('ngoAddress').addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !this.hasAttribute('readonly')) {
+                cancelAddressEdit();
+            }
+            // For textarea, Ctrl+Enter saves (since Enter is used for new lines)
+            if (e.key === 'Enter' && e.ctrlKey && !this.hasAttribute('readonly')) {
+                saveAddress();
+            }
+        });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97ee41aa70fa8171',t:'MTc1NzgzNTgzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97f5b136d45b9cd7',t:'MTc1NzkxMzgwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
