@@ -71,9 +71,14 @@ public class HomeController {
         model.addAttribute("pageTitle", "HISTORY OF PICKUP AGENT");
         return "pickup_agent_history";
     }
-     @GetMapping("/post_story")
+    @GetMapping("/post_story")
     public String post_story(Model model) {
         model.addAttribute("pageTitle", "POST IMPACT STORIES");
         return "post_story";
+    }
+    @GetMapping("/donor_dashboard")
+    public String donor_dashboard(Model model) {
+    model.addAttribute("pageTitle", "Donor Dashboard");
+    return "donor_dashboard"; 
     }
 }
