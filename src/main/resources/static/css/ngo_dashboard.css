@@ -149,6 +149,11 @@
             color: white;
             border-style: solid;
         }
+        .btn-stories {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    color: white;
+}
+
 
         .email-container {
             display: flex;

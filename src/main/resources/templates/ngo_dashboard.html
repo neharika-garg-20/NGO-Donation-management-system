@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NGO Dashboard - Food Donation Platform</title>
-    <link rel="stylesheet" href="../static/css/ngo_dashboard.css">
+    <link rel="stylesheet" href="/css/ngo_dashboard.css">
 </head>
 
 <body>
@@ -184,6 +184,9 @@
                         <button class="action-btn btn-volunteers" onclick="navigateToVolunteers()">
                             👥 Volunteers
                         </button>
+                            <button class="action-btn btn-stories" onclick="navigateToStories()">
+                        📝 Post Stories
+                    </button>
                     </div>
                 </div>
 
@@ -406,6 +409,12 @@
             alert('Redirecting to Volunteers page...\n\nHere you can:\n• Manage volunteer profiles\n• Assign tasks to volunteers\n• Track volunteer hours\n• Recruit new volunteers');
             // In a real app: window.location.href = '/volunteers';
         }
+
+        function navigateToStories() {
+    alert('Redirecting to Stories page...\n\nHere you can:\n• Post success stories\n• Share impact updates\n• Highlight donor and volunteer contributions');
+    // In a real app: window.location.href = '/stories';
+}
+
 
         // Auto-save inventory amounts
         document.querySelectorAll('.amount-input').forEach(input => {

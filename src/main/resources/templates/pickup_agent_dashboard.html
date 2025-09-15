@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pickup Agent Dashboard - Food Donation Platform</title>
+    <link rel="stylesheet" href="/css/pickup_agent_dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Pickup Agent Dashboard</h1>
+            <p>Manage your pickup services and delivery requests</p>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Agent Profile Card - Full Width -->
+            <div class="card full-width">
+                <div class="card-title">
+                    Agent Profile
+                </div>
+                
+                <div class="agent-name-fixed">
+                    🚚 Rajesh Kumar
+                </div>
+                
+                <div class="contact-field">
+                    <h4>Email Address:</h4>
+                    <div class="contact-input-container">
+                        <input type="email" id="agentEmail" class="contact-input" value="rajesh.kumar@pickupservice.com" readonly>
+                        <div class="contact-buttons">
+                            <button class="edit-btn" onclick="toggleEmailEdit()">✏️ Edit</button>
+                            <button class="save-btn" onclick="saveEmail()" style="display: none;">💾 Save</button>
+                            <button class="cancel-btn" onclick="cancelEmailEdit()" style="display: none;">❌ Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-field">
+                    <h4>Contact Number:</h4>
+                    <div class="contact-input-container">
+                        <input type="tel" id="agentPhone" class="contact-input" value="+91 98765 43210" readonly>
+                        <div class="contact-buttons">
+                            <button class="edit-btn" onclick="togglePhoneEdit()">✏️ Edit</button>
+                            <button class="save-btn" onclick="savePhone()" style="display: none;">💾 Save</button>
+                            <button class="cancel-btn" onclick="cancelPhoneEdit()" style="display: none;">❌ Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-field">
+                    <h4>Address:</h4>
+                    <div class="contact-input-container">
+                        <textarea id="agentAddress" class="contact-input contact-textarea" readonly>House No. 45, MG Road, Sector 14, Gurgaon, Haryana 122001</textarea>
+                        <div class="contact-buttons">
+                            <button class="edit-btn" onclick="toggleAddressEdit()">✏️ Edit</button>
+                            <button class="save-btn" onclick="saveAddress()" style="display: none;">💾 Save</button>
+                            <button class="cancel-btn" onclick="cancelAddressEdit()" style="display: none;">❌ Cancel</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 style="color: var(--dark-blue); margin-bottom: 12px;">Available Vehicles:</h4>
+                <div class="vehicle-types" id="vehicleTypes">
+                    <div class="vehicle-option selected" data-vehicle="bike" onclick="toggleVehicle(this)">
+                        <span class="vehicle-icon">🏍️</span>
+                        <span>Bike</span>
+                        <span class="vehicle-remove">×</span>
+                    </div>
+                    <div class="vehicle-option" data-vehicle="car" onclick="toggleVehicle(this)">
+                        <span class="vehicle-icon">🚗</span>
+                        <span>Car</span>
+                        <span class="vehicle-remove">×</span>
+                    </div>
+                    <div class="vehicle-option selected" data-vehicle="truck-mini" onclick="toggleVehicle(this)">
+                        <span class="vehicle-icon">🚐</span>
+                        <span>Mini Truck</span>
+                        <span class="vehicle-remove">×</span>
+                    </div>
+                    <div class="vehicle-option" data-vehicle="truck-large" onclick="toggleVehicle(this)">
+                        <span class="vehicle-icon">🚛</span>
+                        <span>Large Truck</span>
+                        <span class="vehicle-remove">×</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 1: Status Controls -->
+            <div class="dashboard-row">
+                <!-- Availability Status -->
+                <div class="card">
+                    <div class="card-title">Availability Status</div>
+                    
+                    <div class="status-controls">
+                        <div class="status-card available" id="statusCard">
+                            <div class="status-toggle available" id="statusToggle" onclick="toggleAvailability()">
+                                <div class="status-slider"></div>
+                            </div>
+                            <div class="status-label" id="statusLabel">Available</div>
+                            <p style="font-size: 14px; color: var(--gray-medium); margin-top: 8px;">
+                                Ready to accept pickup requests
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pickup Alert -->
+                <div class="card">
+                    <div class="card-title">Pickup Requests</div>
+                    
+                    <div class="alert-card" id="alertCard">
+                        <button class="alert-button" id="alertButton" onclick="toggleAlert()">
+                            🔔
+                        </button>
+                        <div class="alert-label" id="alertLabel">No Active Requests</div>
+                        <div class="alert-status" id="alertStatus">Waiting for pickup requests...</div>
+                        
+                        <div class="pickup-request" id="pickupRequest">
+                            <div class="request-header">
+                                <div class="request-title">🚨 PICKUP REQUEST</div>
+                                <div class="request-time" id="requestTime">Just now</div>
+                            </div>
+                            <div class="request-details" id="requestDetails">
+                                <strong>NGO:</strong> Hope Foundation<br>
+                                <strong>Pickup Address:</strong> 123 Charity Street, Mumbai<br>
+                                <strong>Delivery Address:</strong> 456 Community Center, Andheri<br>
+                                <strong>Items:</strong> Food donations (50kg)
+                            </div>
+                            <button class="complete-btn" onclick="completeDelivery()">
+                                ✅ Mark as Completed
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Overview - Full Width -->
+            <div class="card full-width">
+                <div class="card-title">Performance Statistics</div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">47</div>
+                        <div class="stat-label">Total Deliveries</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">This Month</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">4.8</div>
+                        <div class="stat-label">Average Rating</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Deliveries Button - Full Width -->
+            <div class="card full-width">
+                <div class="card-title">Delivery Management</div>
+                <div style="text-align: center; padding: 20px;">
+                    <button class="deliveries-btn" onclick="navigateToDeliveries()">
+                        📦 View All Deliveries
+                    </button>
+                    <p style="color: var(--medium-brown); margin-top: 12px; font-size: 14px;">
+                        Access your complete delivery history, track ongoing deliveries, and manage pickup requests
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isAvailable = true;
+        let hasActiveRequest = false;
+        let selectedVehicles = new Set(['bike', 'truck-mini']);
+        
+        // Store original values for cancel functionality
+        let originalEmail = '';
+        let originalPhone = '';
+        let originalAddress = '';
+
+        function toggleVehicle(element) {
+            const vehicleType = element.dataset.vehicle;
+            
+            if (element.classList.contains('selected')) {
+                element.classList.remove('selected');
+                selectedVehicles.delete(vehicleType);
+            } else {
+                element.classList.add('selected');
+                selectedVehicles.add(vehicleType);
+            }
+            
+            // Update vehicle availability message
+            updateVehicleStatus();
+        }
+
+        function updateVehicleStatus() {
+            if (selectedVehicles.size === 0) {
+                alert('Please select at least one vehicle type to remain available for pickups.');
+            }
+        }
+
+        function toggleAvailability() {
+            const toggle = document.getElementById('statusToggle');
+            const card = document.getElementById('statusCard');
+            const label = document.getElementById('statusLabel');
+            
+            if (isAvailable) {
+                // Going offline
+                isAvailable = false;
+                toggle.classList.remove('available');
+                card.classList.remove('available');
+                card.classList.add('busy');
+                label.textContent = 'Offline';
+                card.querySelector('p').textContent = 'Not accepting pickup requests';
+            } else {
+                // Going online
+                isAvailable = true;
+                toggle.classList.add('available');
+                card.classList.add('available');
+                card.classList.remove('busy');
+                label.textContent = 'Available';
+                card.querySelector('p').textContent = 'Ready to accept pickup requests';
+            }
+        }
+
+        function toggleAlert() {
+            if (!hasActiveRequest) {
+                // Simulate receiving a pickup request
+                simulatePickupRequest();
+            } else {
+                // Acknowledge the alert (but don't complete the delivery)
+                acknowledgeAlert();
+            }
+        }
+
+        function simulatePickupRequest() {
+            hasActiveRequest = true;
+            const alertCard = document.getElementById('alertCard');
+            const alertButton = document.getElementById('alertButton');
+            const alertLabel = document.getElementById('alertLabel');
+            const alertStatus = document.getElementById('alertStatus');
+            const pickupRequest = document.getElementById('pickupRequest');
+            const requestTime = document.getElementById('requestTime');
+            
+            // Update alert appearance
+            alertCard.classList.add('active');
+            alertButton.classList.add('active');
+            alertButton.textContent = '🚨';
+            alertLabel.textContent = 'PICKUP REQUEST RECEIVED!';
+            alertStatus.textContent = 'Click to acknowledge request';
+            
+            // Show pickup request details
+            pickupRequest.classList.add('show');
+            requestTime.textContent = new Date().toLocaleTimeString();
+            
+            // Play alert sound (simulated)
+            console.log('🔊 Alert sound playing...');
+        }
+
+        function acknowledgeAlert() {
+            const alertButton = document.getElementById('alertButton');
+            const alertLabel = document.getElementById('alertLabel');
+            const alertStatus = document.getElementById('alertStatus');
+            
+            alertButton.textContent = '📋';
+            alertLabel.textContent = 'Request Acknowledged';
+            alertStatus.textContent = 'Complete delivery to clear alert';
+        }
+
+        function completeDelivery() {
+            hasActiveRequest = false;
+            const alertCard = document.getElementById('alertCard');
+            const alertButton = document.getElementById('alertButton');
+            const alertLabel = document.getElementById('alertLabel');
+            const alertStatus = document.getElementById('alertStatus');
+            const pickupRequest = document.getElementById('pickupRequest');
+            
+            // Reset alert appearance
+            alertCard.classList.remove('active');
+            alertButton.classList.remove('active');
+            alertButton.textContent = '🔔';
+            alertLabel.textContent = 'No Active Requests';
+            alertStatus.textContent = 'Waiting for pickup requests...';
+            
+            // Hide pickup request details
+            pickupRequest.classList.remove('show');
+            
+            // Log delivery completion
+            console.log('Delivery completed and logged');
+            
+            // Update statistics
+            updateStatistics();
+            
+            alert('✅ Delivery marked as completed!\nThank you for your service.');
+        }
+
+        function navigateToDeliveries() {
+            alert('Redirecting to Deliveries page...\n\nHere you can:\n• View complete delivery history\n• Track ongoing deliveries\n• Manage pickup requests\n• View earnings and ratings\n• Download delivery reports');
+            // In a real app: window.location.href = '/deliveries';
+        }
+
+        function updateStatistics() {
+            const totalDeliveries = document.querySelector('.stat-card .stat-number');
+            const monthlyDeliveries = document.querySelectorAll('.stat-card .stat-number')[1];
+            
+            // Increment counters
+            let total = parseInt(totalDeliveries.textContent);
+            let monthly = parseInt(monthlyDeliveries.textContent);
+            
+            totalDeliveries.textContent = total + 1;
+            monthlyDeliveries.textContent = monthly + 1;
+        }
+
+        // Contact information editing functions
+        function toggleEmailEdit() {
+            const emailInput = document.getElementById('agentEmail');
+            const editBtn = emailInput.parentElement.querySelector('.edit-btn');
+            const saveBtn = emailInput.parentElement.querySelector('.save-btn');
+            const cancelBtn = emailInput.parentElement.querySelector('.cancel-btn');
+            
+            originalEmail = emailInput.value;
+            
+            emailInput.removeAttribute('readonly');
+            emailInput.focus();
+            emailInput.select();
+            
+            editBtn.style.display = 'none';
+            saveBtn.style.display = 'flex';
+            cancelBtn.style.display = 'flex';
+        }
+
+        function saveEmail() {
+            const emailInput = document.getElementById('agentEmail');
+            const editBtn = emailInput.parentElement.querySelector('.edit-btn');
+            const saveBtn = emailInput.parentElement.querySelector('.save-btn');
+            const cancelBtn = emailInput.parentElement.querySelector('.cancel-btn');
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                alert('Please enter a valid email address.');
+                emailInput.focus();
+                return;
+            }
+            
+            alert(`Email updated successfully!\nNew email: ${emailInput.value}`);
+            
+            emailInput.setAttribute('readonly', true);
+            editBtn.style.display = 'flex';
+            saveBtn.style.display = 'none';
+            cancelBtn.style.display = 'none';
+        }
+
+        function cancelEmailEdit() {
+            const emailInput = document.getElementById('agentEmail');
+            const editBtn = emailInput.parentElement.querySelector('.edit-btn');
+            const saveBtn = emailInput.parentElement.querySelector('.save-btn');
+            const cancelBtn = emailInput.parentElement.querySelector('.cancel-btn');
+            
+            emailInput.value = originalEmail;
+            emailInput.setAttribute('readonly', true);
+            
+            editBtn.style.display = 'flex';
+            saveBtn.style.display = 'none';
+            cancelBtn.style.display = 'none';
+        }
+
+        function togglePhoneEdit() {
+            const phoneInput = document.getElementById('agentPhone');
+            const editBtn = phoneInput.parentElement.querySelector('.edit-btn');
+            const saveBtn = phoneInput.parentElement.querySelector('.save-btn');
+            const cancelBtn = phoneInput.parentElement.querySelector('.cancel-btn');
+            
+            originalPhone = phoneInput.value;
+            
+            phoneInput.removeAttribute('readonly');
+            phoneInput.focus();
+            phoneInput.select();
+            
+            editBtn.style.display = 'none';
+            saveBtn.style.display = 'flex';
+            cancelBtn.style.display = 'flex';
+        }
+
+        function savePhone() {
+            const phoneInput = document.getElementById('agentPhone');
+            const editBtn = phoneInput.parentElement.querySelector('.edit-btn');
+            const saveBtn = phoneInput.parentElement.querySelector('.save-btn');
+            const cancelBtn = phoneInput.parentElement.querySelector('.cancel-btn');
+            
+            const phoneValue = phoneInput.value.trim();
+            if (phoneValue.length < 10) {
+                alert('Please enter a valid phone number.');
+                phoneInput.focus();
+                return;
+            }
+            
+            alert(`Contact number updated successfully!\nNew number: ${phoneInput.value}`);
+            
+            phoneInput.setAttribute('readonly', true);
+            editBtn.style.display = 'flex';
+            saveBtn.style.display = 'none';
+            cancelBtn.style.display = 'none';
+        }
+
+        function cancelPhoneEdit() {
+            const phoneInput = document.getElementById('agentPhone');
+            const editBtn = phoneInput.parentElement.querySelector('.edit-btn');
+            const saveBtn = phoneInput.parentElement.querySelector('.save-btn');
+            const cancelBtn = phoneInput.parentElement.querySelector('.cancel-btn');
+            
+            phoneInput.value = originalPhone;
+            phoneInput.setAttribute('readonly', true);
+            
+            editBtn.style.display = 'flex';
+            saveBtn.style.display = 'none';
+            cancelBtn.style.display = 'none';
+        }
+
+        function toggleAddressEdit() {
+            const addressInput = document.getElementById('agentAddress');
+            const editBtn = addressInput.parentElement.querySelector('.edit-btn');
+            const saveBtn = addressInput.parentElement.querySelector('.save-btn');
+            const cancelBtn = addressInput.parentElement.querySelector('.cancel-btn');
+            
+            originalAddress = addressInput.value;
+            
+            addressInput.removeAttribute('readonly');
+            addressInput.focus();
+            addressInput.select();
+            
+            editBtn.style.display = 'none';
+            saveBtn.style.display = 'flex';
+            cancelBtn.style.display = 'flex';
+        }
+
+        function saveAddress() {
+            const addressInput = document.getElementById('agentAddress');
+            const editBtn = addressInput.parentElement.querySelector('.edit-btn');
+            const saveBtn = addressInput.parentElement.querySelector('.save-btn');
+            const cancelBtn = addressInput.parentElement.querySelector('.cancel-btn');
+            
+            const addressValue = addressInput.value.trim();
+            if (addressValue.length < 10) {
+                alert('Please enter a complete address.');
+                addressInput.focus();
+                return;
+            }
+            
+            alert(`Address updated successfully!\nNew address: ${addressInput.value}`);
+            
+            addressInput.setAttribute('readonly', true);
+            editBtn.style.display = 'flex';
+            saveBtn.style.display = 'none';
+            cancelBtn.style.display = 'none';
+        }
+
+        function cancelAddressEdit() {
+            const addressInput = document.getElementById('agentAddress');
+            const editBtn = addressInput.parentElement.querySelector('.edit-btn');
+            const saveBtn = addressInput.parentElement.querySelector('.save-btn');
+            const cancelBtn = addressInput.parentElement.querySelector('.cancel-btn');
+            
+            addressInput.value = originalAddress;
+            addressInput.setAttribute('readonly', true);
+            
+            editBtn.style.display = 'flex';
+            saveBtn.style.display = 'none';
+            cancelBtn.style.display = 'none';
+        }
+
+        // Keyboard shortcuts for editing
+        document.getElementById('agentEmail').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !this.hasAttribute('readonly')) {
+                saveEmail();
+            }
+        });
+
+        document.getElementById('agentEmail').addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !this.hasAttribute('readonly')) {
+                cancelEmailEdit();
+            }
+        });
+
+        document.getElementById('agentPhone').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !this.hasAttribute('readonly')) {
+                savePhone();
+            }
+        });
+
+        document.getElementById('agentPhone').addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !this.hasAttribute('readonly')) {
+                cancelPhoneEdit();
+            }
+        });
+
+        document.getElementById('agentAddress').addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !this.hasAttribute('readonly')) {
+                cancelAddressEdit();
+            }
+            if (e.key === 'Enter' && e.ctrlKey && !this.hasAttribute('readonly')) {
+                saveAddress();
+            }
+        });
+
+        // Simulate random pickup requests for demo
+        function simulateRandomRequests() {
+            if (!hasActiveRequest && isAvailable && Math.random() > 0.85) {
+                const ngos = ['Hope Foundation', 'Care Society', 'Food Bank Mumbai', 'Helping Hands'];
+                const addresses = [
+                    'MG Road, Gurgaon → Community Center, Andheri',
+                    'Bandra West → Dharavi Shelter',
+                    'Powai → Kurla Distribution Center',
+                    'Juhu → Malad Orphanage'
+                ];
+                
+                const randomNgo = ngos[Math.floor(Math.random() * ngos.length)];
+                const randomAddress = addresses[Math.floor(Math.random() * addresses.length)];
+                
+                // Update request details
+                const requestDetails = document.getElementById('requestDetails');
+                requestDetails.innerHTML = `
+                    <strong>NGO:</strong> ${randomNgo}<br>
+                    <strong>Route:</strong> ${randomAddress}<br>
+                    <strong>Items:</strong> Food donations (${Math.floor(Math.random() * 50) + 20}kg)
+                `;
+                
+                simulatePickupRequest();
+            }
+        }
+
+        // Check for random requests every 30 seconds
+        setInterval(simulateRandomRequests, 30000);
+
+        // Initialize the page
+        window.addEventListener('load', function() {
+            console.log('Pickup Agent Dashboard loaded successfully!');
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97f5f998f2318996',t:'MTc1NzkxNjc3My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

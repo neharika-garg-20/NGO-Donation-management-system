@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
+
     @GetMapping("/home")
     public String home_page(Model model){
         model.addAttribute("pageTitle" , "HOME PAGE");
         return "home";
     }
+    
     @GetMapping("/login")
     public String login(Model model) {
     model.addAttribute("pageTitle", "Login");
@@ -56,9 +58,16 @@ public class HomeController {
     model.addAttribute("pageTitle", "Donor History");
     return "donor_history"; 
     }
+
     @GetMapping("/ngo_history")
     public String ngo_history(Model model) {
     model.addAttribute("pageTitle", "NGO History");
     return "ngo_history"; 
+    }
+
+    @GetMapping("/pickup_dashboard")
+    public String pickup_dashboard(Model model){
+        model.addAttribute("pageTitle", "Pickup Dashboard");
+        return "pickup_agent_dashboard";
     }
 }
