@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title th:text="${pageTitle}">Sign Up</title>
+  <link rel="stylesheet" href="/css/signup.css">
+</head>
+<body>
+
+  <header class="page-head">
+    <div class="head-inner">
+      <a class="brand" href="/">
+        <div class="brand-mark">🤝</div>
+        <div class="brand-title">Sign Up</div>
+      </a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <div class="card-head">
+        <h1 class="card-title">Create your account</h1>
+        <p class="card-sub">Fill in your details and create your profile.</p>
+      </div>
+
+      <div class="card-body">
+        <!-- Bind form to Donor object -->
+        <form th:action="@{/donor/signup}" th:object="${donor}" method="post">
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="firstName">First name</label>
+              <input type="text" th:field="*{firstName}" required placeholder="Jane"/>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last name</label>
+              <input type="text" th:field="*{lastName}" required placeholder="Doe"/>
+            </div>
+            <div class="form-group">
+              <label for="middleName">Middle name (optional)</label>
+              <input type="text" th:field="*{middleName}" placeholder="Ann"/>
+            </div>
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" th:field="*{username}" required placeholder="jane_doe123"/>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" th:field="*{email}" required placeholder="jane@example.com"/>
+            </div>
+            <div class="form-group">
+              <label for="phoneNumber">Phone number</label>
+              <input type="tel" th:field="*{phoneNumber}" required placeholder="+91 9876543210"/>
+            </div>
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" th:field="*{city}" required placeholder="Delhi"/>
+            </div>
+            <div class="form-group full">
+              <label for="streetAddress">Street address</label>
+              <input type="text" th:field="*{streetAddress}" required placeholder="123 Market St"/>
+            </div>
+            <div class="form-group">
+              <label for="apartment">Apartment (optional)</label>
+              <input type="text" th:field="*{apartment}" placeholder="Apt 4B"/>
+            </div>
+            <div class="form-group">
+              <label for="houseNumber">House number</label>
+              <input type="text" th:field="*{houseNumber}" placeholder="42"/>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" th:field="*{password}" required placeholder="••••••••"/>
+            </div>
+          </div>
+
+          <!-- Badge Level -->
+          <div class="form-group">
+            <label for="badgeLevel">Badge Level</label>
+            <select th:field="*{badgeLevel}">
+              <option value="Silver">Silver</option>
+              <option value="Gold">Gold</option>
+              <option value="Platinum">Platinum</option>
+            </select>
+          </div>
+
+          <!-- Actions -->
+          <div class="actions">
+            <button type="submit" class="btn primary">Create account</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>
