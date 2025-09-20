@@ -1,113 +1,44 @@
-<!-- <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title th:text="${pageTitle}">Sign Up</title>
-  <link rel="stylesheet" href="/css/signup.css">
-</head>
-<body>
-
-  <header class="page-head">
-    <div class="head-inner">
-      <a class="brand" href="/">
-        <div class="brand-mark">🤝</div>
-        <div class="brand-title">Sign Up</div>
-      </a>
-    </div>
-  </header>
-
-  <main class="wrap">
-    <section class="card">
-      <div class="card-head">
-        <h1 class="card-title">Create your account</h1>
-        <p class="card-sub">Fill in your details and create your profile.</p>
-      </div>
-
-      <div class="card-body">
-        <form th:action="@{/donor/signup}" th:object="${donor}" method="post">
-          
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="firstName">First name</label>
-              <input type="text" th:field="*{firstName}" required placeholder="Jane"/>
-            </div>
-            <div class="form-group">
-              <label for="lastName">Last name</label>
-              <input type="text" th:field="*{lastName}" required placeholder="Doe"/>
-            </div>
-            <div class="form-group">
-              <label for="middleName">Middle name (optional)</label>
-              <input type="text" th:field="*{middleName}" placeholder="Ann"/>
-            </div>
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input type="text" th:field="*{username}" required placeholder="jane_doe123"/>
-            </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" th:field="*{email}" required placeholder="jane@example.com"/>
-            </div>
-            <div class="form-group">
-              <label for="phoneNumber">Phone number</label>
-              <input type="tel" th:field="*{phoneNumber}" required placeholder="+91 9876543210"/>
-            </div>
-            <div class="form-group">
-              <label for="city">City</label>
-              <input type="text" th:field="*{city}" required placeholder="Delhi"/>
-            </div>
-            <div class="form-group full">
-              <label for="streetAddress">Street address</label>
-              <input type="text" th:field="*{streetAddress}" required placeholder="123 Market St"/>
-            </div>
-            <div class="form-group">
-              <label for="apartment">Apartment (optional)</label>
-              <input type="text" th:field="*{apartment}" placeholder="Apt 4B"/>
-            </div>
-            <div class="form-group">
-              <label for="houseNumber">House number</label>
-              <input type="text" th:field="*{houseNumber}" placeholder="42"/>
-            </div>
-          </div>
-
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" th:field="*{password}" required placeholder="••••••••"/>
-            </div>
-          </div>
-
-
-          <div class="form-group">
-            <label for="badgeLevel">Badge Level</label>
-            <select th:field="*{badgeLevel}">
-              <option value="Silver">Silver</option>
-              <option value="Gold">Gold</option>
-              <option value="Platinum">Platinum</option>
-            </select>
-          </div>
-
-
-          <div class="actions">
-            <button type="submit" class="btn primary">Create account</button>
-          </div>
-        </form>
-      </div>
-    </section>
-  </main>
-
-</body>
-</html> -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title th:text="${pageTitle}">Sign Up</title>
-  <link rel="stylesheet" href="/css/signup.css">
-</head>
-<body>
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title th:text="${pageTitle}">Sign Up</title>
+  <link rel="stylesheet" href="/css/signup.css" />
+  <script>
+    function toggleFields() {
+      const userType = document.getElementById("userType").value;
+      document.getElementById("donorFields").style.display = userType === "Donor" ? "block" : "none";
+      document.getElementById("ngoFields").style.display = userType === "NGO" ? "block" : "none";
+      document.getElementById("agentFields").style.display = userType === "Pickup_Agent" ? "block" : "none";
+      document.getElementById("volunteerFields").style.display = userType === "Volunteer" ? "block" : "none";
+
+      // Dynamically set required for NGO fields
+      const ngoRequired = userType === "NGO";
+      document.getElementById("organizationName").required = ngoRequired;
+      document.getElementById("acceptedItemTypes").required = ngoRequired;
+      document.getElementById("registrationId").required = ngoRequired;
+      document.getElementById("documentUrl").required = ngoRequired;
+    }
+
+    function validateForm() {
+      const houseNumber = document.getElementById("houseNumber").value;
+      const houseNumberError = document.getElementById("houseNumberError");
+      if (houseNumber && houseNumber.length > 10) {
+        houseNumberError.textContent = "House number must be 10 characters or less";
+        houseNumberError.style.display = "block";
+        return false;
+      } else {
+        houseNumberError.textContent = "";
+        houseNumberError.style.display = "none";
+      }
+      return true;
+    }
+  </script>
+</head>
+
+<body onload="toggleFields()" class="grain">
   <header class="page-head">
     <div class="head-inner">
       <a class="brand" href="/">
@@ -122,108 +53,178 @@
       <div class="card-head">
         <h1 class="card-title">Create your account</h1>
         <p class="card-sub">Fill in your details and create your profile.</p>
+        <div th:if="${error}" class="error-message" th:text="${error}"></div>
       </div>
 
       <div class="card-body">
-        <!-- Unified Signup Form -->
-        <form th:action="@{/signup}" method="post">
-          
-          <!-- Role Selection -->
-          <div class="form-group">
-            <label for="role">Sign up as</label>
-            <select name="role" id="role" required>
-              <option value="donor" selected>Donor</option>
-              <option value="ngo">NGO</option>
-              <option value="volunteer">Volunteer</option>
-              <option value="pickup">Pickup Agent</option>
+        <form th:action="@{/signup}" th:object="${user}" method="post">
+          <!-- User Type Selection -->
+          <div class="form-group full">
+            <label for="userType">Account Type</label>
+            <select id="userType" th:field="*{userType}" onchange="toggleFields()" required >
+              <option class="user_type" value="" disabled selected>Select account type</option>
+              <option class="user_type" value="Donor">Donor</option>
+              <option class="user_type" value="NGO">NGO</option>
+              <option class="user_type" value="Pickup_Agent">Pickup Agent</option>
+              <option class="user_type" value="Volunteer">Volunteer</option>
             </select>
+            <div th:errors="*{userType}" class="error-text"></div>
           </div>
 
+          <!-- Common Fields -->
           <div class="form-grid">
             <div class="form-group">
               <label for="firstName">First name</label>
-              <input type="text" name="firstName" required placeholder="Jane"/>
+              <input type="text" th:field="*{firstName}" required placeholder="Jane" />
+              <div th:errors="*{firstName}" class="error-text"></div>
             </div>
             <div class="form-group">
               <label for="lastName">Last name</label>
-              <input type="text" name="lastName" required placeholder="Doe"/>
+              <input type="text" th:field="*{lastName}" required placeholder="Doe" />
+              <div th:errors="*{lastName}" class="error-text"></div>
             </div>
             <div class="form-group">
               <label for="middleName">Middle name (optional)</label>
-              <input type="text" name="middleName" placeholder="Ann"/>
+              <input type="text" th:field="*{middleName}" placeholder="Ann" />
             </div>
             <div class="form-group">
               <label for="username">Username</label>
-              <input type="text" name="username" required placeholder="jane_doe123"/>
+              <input type="text" th:field="*{username}" required placeholder="jane_doe123" />
+              <div th:errors="*{username}" class="error-text"></div>
             </div>
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" name="email" required placeholder="jane@example.com"/>
+              <input type="email" th:field="*{email}" required placeholder="jane@example.com" />
+              <div th:errors="*{email}" class="error-text"></div>
             </div>
             <div class="form-group">
               <label for="phoneNumber">Phone number</label>
-              <input type="tel" name="phoneNumber" required placeholder="+91 9876543210"/>
+              <input type="tel" th:field="*{phoneNumber}" required placeholder="+91 9876543210" />
+              <div th:errors="*{phoneNumber}" class="error-text"></div>
             </div>
             <div class="form-group">
               <label for="city">City</label>
-              <input type="text" name="city" required placeholder="Delhi"/>
+              <input type="text" th:field="*{city}" required placeholder="Delhi" />
+              <div th:errors="*{city}" class="error-text"></div>
             </div>
             <div class="form-group full">
               <label for="streetAddress">Street address</label>
-              <input type="text" name="streetAddress" required placeholder="123 Market St"/>
+              <input type="text" th:field="*{streetAddress}" required placeholder="123 Market St" />
+              <div th:errors="*{streetAddress}" class="error-text"></div>
             </div>
             <div class="form-group">
               <label for="apartment">Apartment (optional)</label>
-              <input type="text" name="apartment" placeholder="Apt 4B"/>
+              <input type="text" th:field="*{apartment}" placeholder="Apt 4B" />
             </div>
             <div class="form-group">
-              <label for="houseNumber">House number</label>
-              <input type="text" name="houseNumber" placeholder="42"/>
+              <label for="houseNumber">House number (optional)</label>
+              <input type="text" th:field="*{houseNumber}" placeholder="42" />
+              <div th:errors="*{houseNumber}" class="error-text"></div>
             </div>
           </div>
 
           <div class="form-grid">
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" name="password" required placeholder="••••••••"/>
+              <input type="password" th:field="*{password}" required placeholder="••••••••" />
+              <div th:errors="*{password}" class="error-text"></div>
             </div>
           </div>
 
-          <!-- Optional fields for specific roles -->
-          <div class="form-group" id="organizationField">
-            <label for="organizationName">Organization Name (for NGO)</label>
-            <input type="text" name="organizationName" placeholder="My NGO"/>
+          <!-- Donor-Specific Fields -->
+          <div id="donorFields" style="display: none;">
+            <input type="hidden" th:field="*{badgeLevel}" value="Silver" />
           </div>
 
-          <div class="form-group" id="vehicleField">
-            <label for="vehicleType">Vehicle Type (for Pickup Agent)</label>
-            <select name="vehicleType">
-              <option value="bike">Bike</option>
-              <option value="car">Car</option>
-              <option value="premier car">Premier Car</option>
-              <option value="truck mini">Truck Mini</option>
-              <option value="truck large">Truck Large</option>
-            </select>
+          <!-- NGO-Specific Fields -->
+          <div id="ngoFields" style="display: none;">
+            <div class="form-group full">
+              <label for="organizationName">Organization Name</label>
+              <input type="text" th:field="*{organizationName}" required placeholder="Helping Hands NGO" />
+              <div th:errors="*{organizationName}" class="error-text"></div>
+            </div>
+            <div class="form-group full">
+              <label>Accepted Item Types</label>
+              <div class="checkbox-group">
+                <label class="checkbox"><input type="checkbox" th:field="*{acceptedItemTypes}" value="food">
+                  Food</label>
+                <label class="checkbox"><input type="checkbox" th:field="*{acceptedItemTypes}" value="clothes">
+                  Clothes</label>
+                <label class="checkbox"><input type="checkbox" th:field="*{acceptedItemTypes}" value="toys">
+                  Toys</label>
+                <label class="checkbox"><input type="checkbox" th:field="*{acceptedItemTypes}" value="funds">
+                  Funds</label>
+              </div>
+              <div th:errors="*{acceptedItemTypes}" class="error-text"></div>
+            </div>
+
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="websiteUrl">Website URL (optional)</label>
+                <input type="url" th:field="*{websiteUrl}" placeholder="https://example.com" />
+              </div>
+              <div class="form-group">
+                <label for="upiId">UPI ID (optional)</label>
+                <input type="text" th:field="*{upiId}" placeholder="ngo@upi" />
+              </div>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="bankAccountNumber">Bank Account Number (optional)</label>
+                <input type="text" th:field="*{bankAccountNumber}" placeholder="1234567890" />
+              </div>
+              <div class="form-group">
+                <label for="bankIfsc">Bank IFSC Code (optional)</label>
+                <input type="text" th:field="*{bankIfsc}" placeholder="ABCD0001234" />
+              </div>
+            </div>
+            <div class="form-group full">
+              <label for="bankAccountName">Bank Account Name (optional)</label>
+              <input type="text" th:field="*{bankAccountName}" placeholder="Helping Hands NGO" />
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="registrationId">Registration ID</label>
+                <input id="registrationId" th:field="*{registrationId}" placeholder="REG-12345" />
+                <div th:errors="*{registrationId}" class="error-text"></div>
+              </div>
+              <div class="form-group full">
+                <label for="documentUrl">Document URL for verification</label>
+                <input id="documentUrl" th:field="*{documentUrl}" placeholder="https://example.com/doc.pdf" />
+                <div th:errors="*{documentUrl}" class="error-text"></div>
+              </div>
+            </div>
           </div>
 
-          <!-- Badge Level only for Donor -->
-          <div class="form-group" id="badgeField">
-            <label for="badgeLevel">Badge Level (for Donor)</label>
-            <select name="badgeLevel">
-              <option value="Silver">Silver</option>
-              <option value="Gold">Gold</option>
-              <option value="Platinum">Platinum</option>
-            </select>
+          <!-- Pickup Agent-Specific Fields -->
+          <div id="agentFields" style="display: none;">
+            <div class="form-group full">
+              <label for="vehicleType">Vehicle Type</label>
+              <select th:field="*{vehicleType}" required>
+                <option value="" disabled selected>Select vehicle type</option>
+                <option value="bike">Bike</option>
+                <option value="car">Car</option>
+                <option value="premier car">Premier Car</option>
+                <option value="truck mini">Truck Mini</option>
+                <option value="truck large">Truck Large</option>
+              </select>
+              <div th:errors="*{vehicleType}" class="error-text"></div>
+            </div>
           </div>
+
+          <!-- Volunteer-Specific Fields -->
+          <div id="volunteerFields" style="display: none;"></div>
 
           <!-- Actions -->
           <div class="actions">
             <button type="submit" class="btn primary">Create account</button>
+            <a href="/login" class="btn secondary">Already have an account? Log in</a>
           </div>
         </form>
       </div>
     </section>
   </main>
-
 </body>
+
 </html>

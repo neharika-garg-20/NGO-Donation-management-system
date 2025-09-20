@@ -3,7 +3,7 @@ package com.example.thymeleaf2_demo.service;
 
 import com.example.thymeleaf2_demo.model.*;
 import com.example.thymeleaf2_demo.repository.DonorRepository;
-import com.example.thymeleaf2_demo.repository.NGORepository;
+import com.example.thymeleaf2_demo.repository.NgoRepository;
 import com.example.thymeleaf2_demo.repository.PickupAgentRepository;
 import com.example.thymeleaf2_demo.repository.VolunteerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class UserService {
     @Autowired
     private DonorRepository donorRepository;
     @Autowired
-    private NGORepository ngoRepository;
+    private NgoRepository ngoRepository;
     @Autowired
     private PickupAgentRepository pickupAgentRepository;
     @Autowired

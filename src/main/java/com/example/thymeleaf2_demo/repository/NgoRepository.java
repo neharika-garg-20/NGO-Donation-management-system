@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 
-import com.example.thymeleaf2_demo.model.NGO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +23,14 @@ import java.util.Set;
 
 
 @Repository
-public class NGORepository {
+public class NgoRepository {
 
-    private static final Logger logger = LoggerFactory.getLogger(NGORepository.class);
+    private static final Logger logger = LoggerFactory.getLogger(NgoRepository.class);
 
 
     private final JdbcTemplate jdbcTemplate;
 
-    public NGORepository(JdbcTemplate jdbcTemplate) {
+    public NgoRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
