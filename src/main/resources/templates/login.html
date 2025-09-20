@@ -18,159 +18,87 @@
             </div>
 
             <!-- Login Form -->
-            <form onsubmit="handleLogin(event)">
-                <!-- User Type Dropdown -->
-                <div class="form-group">
-                    <label class="form-label">Login as</label>
-                    <div class="dropdown-container">
-                        <button type="button" class="dropdown-button" onclick="toggleDropdown()">
-                            <span id="selectedUserType">Select user type</span>
-                            <svg class="dropdown-icon" id="dropdownIcon" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                            </svg>
-                        </button>
-                        
-                        <!-- Dropdown Menu -->
-                        <div class="dropdown-menu" id="dropdownMenu">
-                            <button type="button" class="dropdown-item" onclick="selectUserType('Donor')">
-                                <span>🤝</span>
-                                Donor
-                            </button>
-                            <button type="button" class="dropdown-item" onclick="selectUserType('Pickup Agent')">
-                                <span>🚚</span>
-                                Pickup Agent
-                            </button>
-                            <button type="button" class="dropdown-item" onclick="selectUserType('NGO')">
-                                <span>🏢</span>
-                                NGO
-                            </button>
-                            <button type="button" class="dropdown-item" onclick="selectUserType('Volunteer')">
-                                <span>❤️</span>
-                                Volunteer
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <form th:action="@{/login}" method="post">
+    <!-- Hidden input to send role -->
+    <input type="hidden" name="userType" id="roleInput" />
 
-                <!-- Email Input -->
-                <div class="form-group">
-                    <label for="email" class="form-label">Email Address</label>
-                    <input type="email" id="email" name="email" required class="form-input" placeholder="Enter your email">
-                </div>
-
-                <!-- Password Input -->
-                <div class="form-group">
-                    <label for="password" class="form-label">Password</label>
-                    <div class="password-container">
-                        <input type="password" id="password" name="password" required class="form-input" placeholder="Enter your password">
-                        <button type="button" class="password-toggle" onclick="togglePassword()">
-                            <svg id="eyeIcon" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
-                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Remember Me & Forgot Password -->
-                <div class="form-row">
-                    <div class="checkbox-container">
-                        <input type="checkbox" id="remember">
-                        <label for="remember">Remember me</label>
-                    </div>
-                    <a href="#" class="forgot-link">Forgot password?</a>
-                </div>
-
-                <!-- Login Button -->
-                <button type="submit" class="login-button">
-                    Sign In
-                </button>
-            </form>
-
-            <!-- Divider -->
-            <div class="divider">
-                <p>
-                    Don't have an account? 
-                    <a href="#" class="signup-link">Sign up here</a>
-                </p>
+    <!-- User Type Dropdown -->
+    <div class="form-group">
+        <label class="form-label">Login as</label>
+        <div class="dropdown-container">
+            <button type="button" class="dropdown-button" onclick="toggleDropdown()">
+                <span id="selectedUserType">Select user type</span>
+                <svg class="dropdown-icon" id="dropdownIcon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+            </button>
+            
+            <!-- Dropdown Menu -->
+            <div class="dropdown-menu" id="dropdownMenu">
+                <button type="button" class="dropdown-item" onclick="selectUserType('donor')">🤝 Donor</button>
+                <button type="button" class="dropdown-item" onclick="selectUserType('pickup_agent')">🚚 Pickup Agent</button>
+                <button type="button" class="dropdown-item" onclick="selectUserType('ngo')">🏢 NGO</button>
+                <button type="button" class="dropdown-item" onclick="selectUserType('volunteer')">❤️ Volunteer</button>
             </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <p>Making a difference, one meal at a time 🍽️</p>
         </div>
     </div>
 
-    <script>
-        let selectedType = '';
+    <!-- Email Input -->
+    <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" id="email" name="email" required class="form-input" placeholder="Enter your email">
+    </div>
 
-        function toggleDropdown() {
-            const menu = document.getElementById('dropdownMenu');
-            const icon = document.getElementById('dropdownIcon');
-            
-            if (menu.classList.contains('show')) {
-                menu.classList.remove('show');
-                icon.classList.remove('rotated');
-            } else {
-                menu.classList.add('show');
-                icon.classList.add('rotated');
-            }
-        }
+    <!-- Password Input -->
+    <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <div class="password-container">
+            <input type="password" id="password" name="password" required class="form-input" placeholder="Enter your password">
+            <button type="button" class="password-toggle" onclick="togglePassword()">
+                <svg id="eyeIcon" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                </svg>
+            </button>
+        </div>
+    </div>
 
-        function selectUserType(type) {
-            selectedType = type;
-            document.getElementById('selectedUserType').textContent = type;
-            document.getElementById('dropdownMenu').classList.remove('show');
+    <!-- Login Button -->
+    <button type="submit" class="login-button">Sign In</button>
+</form>
+
+<script>
+    let selectedType = '';
+
+    function toggleDropdown() {
+        const menu = document.getElementById('dropdownMenu');
+        const icon = document.getElementById('dropdownIcon');
+        menu.classList.toggle('show');
+        icon.classList.toggle('rotated');
+    }
+
+    function selectUserType(type) {
+        selectedType = type;
+        document.getElementById('selectedUserType').textContent = type;
+        document.getElementById('roleInput').value = type; // <-- This sets the hidden input
+        document.getElementById('dropdownMenu').classList.remove('show');
+        document.getElementById('dropdownIcon').classList.remove('rotated');
+    }
+
+    function togglePassword() {
+        const passwordInput = document.getElementById('password');
+        passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+    }
+
+    document.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('dropdownMenu');
+        const button = document.querySelector('.dropdown-button');
+        if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.classList.remove('show');
             document.getElementById('dropdownIcon').classList.remove('rotated');
         }
+    });
+</script>
 
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const eyeIcon = document.getElementById('eyeIcon');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIcon.innerHTML = '<path d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L8.464 8.464M9.878 9.878a3 3 0 00-.007 4.243m5.657-5.657L17.95 6.05M14.121 14.121a3 3 0 01-4.243 0m4.243 0L17.95 17.95M14.121 14.121L8.464 8.464m5.657 5.657a3 3 0 000-4.243m0 4.243L8.464 8.464M2.343 2.343l15.314 15.314"/>';
-            } else {
-                passwordInput.type = 'password';
-                eyeIcon.innerHTML = '<path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>';
-            }
-        }
-
-        function handleLogin(event) {
-            event.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            if (!selectedType) {
-                alert('Please select a user type from the dropdown');
-                return;
-            }
-            
-            // Simulate login process
-            const button = event.target.querySelector('.login-button');
-            button.textContent = 'Signing in...';
-            button.disabled = true;
-            
-            setTimeout(() => {
-                alert(`Welcome back! Logging in as ${selectedType}\nEmail: ${email}`);
-                button.textContent = 'Sign In';
-                button.disabled = false;
-            }, 1500);
-        }
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            const dropdown = document.getElementById('dropdownMenu');
-            const button = document.querySelector('.dropdown-button');
-            
-            if (!button.contains(event.target) && !dropdown.contains(event.target)) {
-                dropdown.classList.remove('show');
-                document.getElementById('dropdownIcon').classList.remove('rotated');
-            }
-        });
-    </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97eddead250c54bc',t:'MTc1NzgzMTc4NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
